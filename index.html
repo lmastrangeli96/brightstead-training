@@ -1,1065 +1,1429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>When Employees Need Support: A Supervisor's Guide to Accommodations</title>
+<title>When Employees Need Support: Supervisor Accommodations Training</title>
+<meta name="description" content="Interactive eLearning module covering four supervisor accommodation scenarios under ADA, PWFA, and Title VII."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap');
+/* ── RESET & BASE ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#f5f5f2;color:#1e1e2e;min-height:100vh;line-height:1.5}
 
-  :root {
-    --navy: #1a2744;
-    --slate: #3d5073;
-    --gold: #e8a020;
-    --gold-light: #fdf3e0;
-    --cream: #fafaf7;
-    --white: #ffffff;
-    --text: #1e1e2e;
-    --muted: #6b7280;
-    --success: #2d7a4f;
-    --success-bg: #edfaf3;
-    --danger: #c0392b;
-    --danger-bg: #fdf0ee;
-    --border: #e2e5ec;
-    --radius: 12px;
-    --shadow: 0 4px 24px rgba(26,39,68,0.10);
-  }
+/* ── WCAG: SKIP LINK ─────────────────────────────────────────────────────── */
+.skip-link{position:absolute;top:-100px;left:0;background:#1a2744;color:#fff;padding:10px 18px;font-weight:700;font-size:0.95rem;z-index:9999;border-radius:0 0 8px 0;text-decoration:none;transition:top 0.2s}
+.skip-link:focus{top:0}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── WCAG: FOCUS ─────────────────────────────────────────────────────────── */
+:focus-visible{outline:3px solid #e8a020;outline-offset:3px;border-radius:4px}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+/* ── WCAG: REDUCED MOTION ────────────────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 
-  /* HEADER */
-  header {
-    width: 100%;
-    background: var(--navy);
-    padding: 18px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  header .course-title {
-    font-family: 'DM Serif Display', serif;
-    color: var(--white);
-    font-size: 1.1rem;
-    letter-spacing: 0.01em;
-  }
-  header .badge {
-    background: var(--gold);
-    color: var(--navy);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
+/* ── TOKENS ──────────────────────────────────────────────────────────────── */
+:root{
+  --navy:#1a2744;
+  --slate:#3d5073;
+  --gold:#c8860a;        /* darkened for AAA contrast on white */
+  --gold-bg:#fdf3e0;
+  --gold-bright:#e8a020; /* for dark backgrounds only */
+  --cream:#f5f5f2;
+  --white:#ffffff;
+  --text:#1e1e2e;
+  --muted:#4a5568;       /* AAA on white: 7:1+ */
+  --success:#1a6b3c;
+  --success-bg:#edfaf3;
+  --danger:#9b1c1c;
+  --danger-bg:#fdf0ee;
+  --border:#d1d5db;
+  --radius:12px;
+  --shadow:0 4px 24px rgba(26,39,68,0.10);
+}
 
-  /* PROGRESS */
-  .progress-bar-wrap {
-    width: 100%;
-    background: var(--slate);
-    height: 6px;
-  }
-  .progress-bar-fill {
-    height: 6px;
-    background: var(--gold);
-    transition: width 0.5s ease;
-  }
+/* ── LAYOUT ──────────────────────────────────────────────────────────────── */
+header{width:100%;background:var(--navy);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.header-title{font-family:'DM Serif Display',serif;color:var(--white);font-size:1rem;letter-spacing:0.01em}
+.header-badge{background:var(--gold-bright);color:var(--navy);font-size:0.72rem;font-weight:700;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em}
+.progress-wrap{width:100%;background:var(--slate);height:8px}
+.progress-fill{height:8px;background:var(--gold-bright);transition:width 0.4s ease}
+main{max-width:800px;margin:0 auto;padding:40px 24px 80px}
 
-  /* MAIN CONTAINER */
-  .module-container {
-    width: 100%;
-    max-width: 780px;
-    padding: 40px 24px 80px;
-  }
+/* ── LIVE REGION ─────────────────────────────────────────────────────────── */
+#live-region{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-  /* SLIDE */
-  .slide {
-    display: none;
-    animation: fadeIn 0.35s ease;
-  }
-  .slide.active { display: block; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+/* ── SCREEN SYSTEM ───────────────────────────────────────────────────────── */
+.screen{display:none}
+.screen.active{display:block;animation:fadeUp 0.3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-  /* SCENE LABEL */
-  .scene-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
+/* ── TYPE ────────────────────────────────────────────────────────────────── */
+.eyebrow{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--gold);margin-bottom:8px}
+.screen-title{font-family:'DM Serif Display',serif;font-size:1.85rem;color:var(--navy);margin-bottom:16px;line-height:1.25}
+.screen-title.large{font-size:2.2rem}
+.body-text{font-size:1rem;line-height:1.65;color:var(--text);margin-bottom:14px}
 
-  /* SLIDE TITLE */
-  .slide-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.9rem;
-    color: var(--navy);
-    margin-bottom: 20px;
-    line-height: 1.25;
-  }
+/* ── CARDS ───────────────────────────────────────────────────────────────── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:20px;box-shadow:var(--shadow)}
 
-  /* CHARACTER SCENE */
-  .character-scene {
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    padding: 28px;
-    margin-bottom: 24px;
-  }
+/* ── FORM ────────────────────────────────────────────────────────────────── */
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-weight:700;font-size:0.95rem;color:var(--navy);margin-bottom:6px}
+.form-input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:1rem;color:var(--text);background:var(--white);transition:border-color 0.2s}
+.form-input:focus{border-color:var(--navy);outline:none;box-shadow:0 0 0 3px rgba(232,160,32,0.35)}
+.form-hint{font-size:0.82rem;color:var(--muted);margin-top:4px}
 
-  .characters {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
+/* ── BUTTONS ─────────────────────────────────────────────────────────────── */
+.btn{font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:600;padding:13px 28px;border-radius:8px;border:2px solid transparent;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.btn-primary:hover{background:var(--slate);border-color:var(--slate)}
+.btn-secondary{background:transparent;color:var(--navy);border-color:var(--border)}
+.btn-secondary:hover{border-color:var(--navy)}
+.btn:disabled{opacity:0.45;cursor:not-allowed}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;flex-wrap:wrap}
 
-  .character {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
+/* ── SCENARIO HUB ────────────────────────────────────────────────────────── */
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+@media(max-width:600px){.scenario-grid{grid-template-columns:1fr}}
+.scenario-card{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:22px;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;transition:all 0.2s;position:relative;width:100%}
+.scenario-card:hover:not(:disabled){border-color:var(--slate);transform:translateY(-2px);box-shadow:var(--shadow)}
+.scenario-card:disabled{cursor:not-allowed;opacity:0.5}
+.scenario-card.completed{border-color:var(--success);background:var(--success-bg)}
+.scenario-card.active-scenario{border-color:var(--navy);background:#f0f3fa}
+.sc-number{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:6px}
+.sc-title{font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:4px;line-height:1.3}
+.sc-law{font-size:0.78rem;color:var(--muted)}
+.sc-status{position:absolute;top:14px;right:14px;font-size:1.1rem}
+.sc-chars{font-size:0.82rem;color:var(--muted);margin-top:8px}
+.hub-progress{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.hub-prog-label{font-size:0.85rem;color:var(--muted);flex:1}
+.hub-prog-bar{flex:2;height:10px;background:var(--border);border-radius:10px;overflow:hidden;min-width:120px}
+.hub-prog-fill{height:10px;background:var(--navy);border-radius:10px;transition:width 0.5s ease}
+.hub-prog-count{font-weight:700;color:var(--navy);font-size:0.9rem;white-space:nowrap}
 
-  .avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    border: 3px solid var(--border);
-  }
-  .avatar.marcus  { background: #e8eef8; border-color: var(--slate); }
-  .avatar.jordan  { background: #f0f8ee; border-color: #4a9e6b; }
-  .avatar.priya   { background: #fdf3e0; border-color: var(--gold); }
+/* ── DIALOGUE ────────────────────────────────────────────────────────────── */
+.dialogue-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.dialogue{display:flex;flex-direction:column;gap:16px}
+.bubble-wrap{display:flex;gap:12px;align-items:flex-start}
+.bubble-wrap.right{flex-direction:row-reverse}
+.b-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:2px solid var(--border)}
+.bubble{background:#f0f3fa;border-radius:0 12px 12px 12px;padding:13px 16px;font-size:0.95rem;line-height:1.55;max-width:86%}
+.bubble-wrap.right .bubble{background:var(--navy);color:var(--white);border-radius:12px 0 12px 12px}
+.bubble .speaker{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--slate);margin-bottom:4px}
+.bubble-wrap.right .bubble .speaker{color:var(--gold-bright)}
 
-  .char-name {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--slate);
-    text-align: center;
-  }
-  .char-role {
-    font-size: 0.68rem;
-    color: var(--muted);
-    text-align: center;
-    max-width: 80px;
-  }
+/* ── NARRATOR / CALLOUT ──────────────────────────────────────────────────── */
+.narrator{background:var(--gold-bg);border-left:4px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:14px 18px;font-size:0.95rem;color:var(--navy);line-height:1.6;margin-bottom:18px}
+.callout{border-radius:var(--radius);padding:16px 20px;margin-bottom:18px;font-size:0.93rem;line-height:1.6}
+.callout.warning{background:#fff7ed;border:2px solid #c47a00}
+.callout.danger{background:var(--danger-bg);border:2px solid #9b1c1c}
+.callout.success{background:var(--success-bg);border:2px solid #1a6b3c}
+.callout.info{background:#eff6ff;border:2px solid #1e40af}
+.callout-title{font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 
-  /* DIALOGUE */
-  .dialogue { display: flex; flex-direction: column; gap: 14px; }
+/* ── CHOICES ─────────────────────────────────────────────────────────────── */
+.choices{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.choice-btn{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:16px 20px;text-align:left;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--text);cursor:pointer;transition:all 0.2s;line-height:1.5;width:100%}
+.choice-btn:hover:not(:disabled){border-color:var(--slate);background:#f0f3fa;transform:translateX(4px)}
+.choice-btn .choice-label{display:inline-block;background:var(--navy);color:var(--white);font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-right:10px;text-transform:uppercase;letter-spacing:0.05em}
+.choice-btn.correct{border-color:var(--success);background:var(--success-bg)}
+.choice-btn.incorrect{border-color:var(--danger);background:var(--danger-bg)}
+.choice-btn:disabled{cursor:default;transform:none}
+.feedback-box{margin-top:14px;padding:16px 20px;border-radius:var(--radius);font-size:0.93rem;line-height:1.6;display:none}
+.feedback-box.show{display:block}
+.feedback-box.correct{background:var(--success-bg);border:2px solid var(--success);color:#14532d}
+.feedback-box.incorrect{background:var(--danger-bg);border:2px solid var(--danger);color:#7f1d1d}
+.feedback-title{font-weight:700;margin-bottom:4px}
 
-  .bubble-wrap {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .bubble-wrap.right {
-    flex-direction: row-reverse;
-  }
+/* ── KEY POINTS ──────────────────────────────────────────────────────────── */
+.key-points{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.key-points h3{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:14px}
+.key-points ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.key-points li{display:flex;gap:12px;align-items:flex-start;font-size:0.95rem;line-height:1.55}
+.kp-icon{width:28px;height:28px;border-radius:50%;background:var(--gold-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.9rem}
 
-  .bubble-avatar {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    flex-shrink: 0;
-  }
-  .bubble-avatar.marcus { background: #e8eef8; }
-  .bubble-avatar.jordan { background: #f0f8ee; }
-  .bubble-avatar.priya  { background: #fdf3e0; }
+/* ── PROCESS STEPS ───────────────────────────────────────────────────────── */
+.process-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.process-step{display:flex;gap:16px;align-items:flex-start;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px}
+.ps-num{width:34px;height:34px;border-radius:50%;background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0}
+.ps-content h4{font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:3px}
+.ps-content p{font-size:0.88rem;color:var(--muted);line-height:1.5}
 
-  .bubble {
-    background: #f4f6fb;
-    border-radius: 0 12px 12px 12px;
-    padding: 12px 16px;
-    font-size: 0.93rem;
-    line-height: 1.55;
-    max-width: 88%;
-    position: relative;
-  }
-  .bubble-wrap.right .bubble {
-    background: var(--navy);
-    color: var(--white);
-    border-radius: 12px 0 12px 12px;
-  }
-  .bubble .speaker {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: var(--slate);
-    margin-bottom: 4px;
-  }
-  .bubble-wrap.right .bubble .speaker { color: var(--gold); }
+/* ── SCENARIO COMPLETE ───────────────────────────────────────────────────── */
+.scenario-complete{text-align:center;padding:32px 20px;background:var(--white);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:20px}
+.sc-complete-icon{font-size:3rem;margin-bottom:12px}
+.sc-complete-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--navy);margin-bottom:8px}
+.sc-complete-sub{color:var(--muted);font-size:0.95rem}
 
-  .bubble em {
-    font-style: italic;
-    opacity: 0.8;
-  }
+/* ── CERTIFICATE ─────────────────────────────────────────────────────────── */
+#cert-screen{text-align:center}
+.cert-wrapper{background:var(--white);border:3px solid var(--navy);border-radius:16px;padding:48px 40px;margin:0 auto 24px;max-width:640px;position:relative}
+.cert-wrapper::before{content:'';position:absolute;inset:8px;border:1.5px solid var(--gold);border-radius:10px;pointer-events:none}
+.cert-org{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);margin-bottom:8px}
+.cert-presents{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--muted);margin-bottom:4px}
+.cert-title{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--navy);margin-bottom:4px;line-height:1.2}
+.cert-subtitle{font-size:0.88rem;color:var(--muted);margin-bottom:24px}
+.cert-divider{height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto;width:80%}
+.cert-awarded{font-size:0.85rem;color:var(--muted);margin-bottom:4px}
+.cert-name{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--navy);margin-bottom:4px}
+.cert-for{font-size:0.9rem;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.cert-meta{display:flex;justify-content:center;gap:48px;margin-top:24px;flex-wrap:wrap}
+.cert-meta-item{text-align:center}
+.cert-meta-label{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:2px}
+.cert-meta-value{font-weight:700;font-size:0.9rem;color:var(--navy)}
+.cert-seal{font-size:2.5rem;margin-bottom:8px}
 
-  /* NARRATOR BOX */
-  .narrator {
-    background: var(--gold-light);
-    border-left: 4px solid var(--gold);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 14px 18px;
-    font-size: 0.9rem;
-    color: var(--navy);
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-  .narrator strong { font-weight: 700; }
+/* ── SCORE SUMMARY ───────────────────────────────────────────────────────── */
+.score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0}
+@media(max-width:500px){.score-grid{grid-template-columns:1fr}}
+.score-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.score-card.pass{border-color:var(--success)}
+.score-card.fail{border-color:var(--danger)}
+.score-num{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--navy)}
+.score-lbl{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em}
+.score-status{font-size:0.78rem;font-weight:700;margin-top:4px}
+.score-card.pass .score-status{color:var(--success)}
+.score-card.fail .score-status{color:var(--danger)}
 
-  /* CALLOUT */
-  .callout {
-    border-radius: var(--radius);
-    padding: 18px 22px;
-    margin-bottom: 20px;
-    font-size: 0.92rem;
-    line-height: 1.6;
-  }
-  .callout.warning  { background: #fff7ed; border: 1px solid #f59e0b; }
-  .callout.info     { background: #eff6ff; border: 1px solid #3b82f6; }
-  .callout.success  { background: var(--success-bg); border: 1px solid #4ade80; }
-  .callout.danger   { background: var(--danger-bg); border: 1px solid #f87171; }
-  .callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+/* ── PRINT ───────────────────────────────────────────────────────────────── */
+@media print{
+  header,.progress-wrap,#hub-screen,.nav-row,.btn,.skip-link{display:none!important}
+  body{background:white}
+  .cert-wrapper{border:3px solid #1a2744;box-shadow:none;page-break-inside:avoid}
+  #cert-screen{display:block!important}
+  main{padding:0}
+}
 
-  /* CHOICES */
-  .choices { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-
-  .choice-btn {
-    background: var(--white);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    text-align: left;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.93rem;
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.2s;
-    line-height: 1.5;
-  }
-  .choice-btn:hover {
-    border-color: var(--slate);
-    background: #f4f6fb;
-    transform: translateX(4px);
-  }
-  .choice-btn .choice-label {
-    display: inline-block;
-    background: var(--navy);
-    color: var(--white);
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-right: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .choice-btn.correct {
-    border-color: var(--success);
-    background: var(--success-bg);
-  }
-  .choice-btn.incorrect {
-    border-color: var(--danger);
-    background: var(--danger-bg);
-  }
-  .choice-btn:disabled { cursor: default; transform: none; }
-
-  /* FEEDBACK */
-  .feedback-box {
-    margin-top: 16px;
-    padding: 16px 20px;
-    border-radius: var(--radius);
-    font-size: 0.92rem;
-    line-height: 1.6;
-    display: none;
-  }
-  .feedback-box.show { display: block; }
-  .feedback-box.correct { background: var(--success-bg); border: 1px solid #4ade80; color: #14532d; }
-  .feedback-box.incorrect { background: var(--danger-bg); border: 1px solid #f87171; color: #7f1d1d; }
-  .feedback-title { font-weight: 700; margin-bottom: 4px; }
-
-  /* KEY POINTS */
-  .key-points {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow);
-  }
-  .key-points h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.2rem;
-    color: var(--navy);
-    margin-bottom: 16px;
-  }
-  .key-points ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-  .key-points li {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 0.92rem;
-    line-height: 1.55;
-  }
-  .key-points li .icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--gold-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 0.9rem;
-  }
-
-  /* NAV BUTTONS */
-  .nav-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 32px;
-    gap: 12px;
-  }
-  .btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.93rem;
-    font-weight: 600;
-    padding: 12px 28px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-primary {
-    background: var(--navy);
-    color: var(--white);
-  }
-  .btn-primary:hover { background: var(--slate); }
-  .btn-secondary {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-  }
-  .btn-secondary:hover { color: var(--navy); border-color: var(--navy); }
-  .btn:disabled { opacity: 0.4; cursor: default; }
-
-  /* COMPLETION */
-  .completion-hero {
-    text-align: center;
-    padding: 40px 20px;
-    background: var(--white);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    margin-bottom: 24px;
-  }
-  .completion-hero .trophy { font-size: 4rem; margin-bottom: 16px; }
-  .completion-hero h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem;
-    color: var(--navy);
-    margin-bottom: 10px;
-  }
-  .completion-hero p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
-
-  .score-display {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    margin: 24px 0;
-    flex-wrap: wrap;
-  }
-  .score-item { text-align: center; }
-  .score-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.5rem;
-    color: var(--navy);
-  }
-  .score-lbl { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
-
-  /* STEP TRACKER */
-  .step-tracker {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 24px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-  .step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-    min-width: 60px;
-  }
-  .step-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--muted);
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s;
-  }
-  .step.done .step-dot   { background: var(--navy); color: var(--white); }
-  .step.active .step-dot { background: var(--gold); color: var(--navy); }
-  .step-line {
-    flex: 1;
-    height: 2px;
-    background: var(--border);
-    margin-top: -20px;
-    transition: background 0.3s;
-  }
-  .step-line.done { background: var(--navy); }
-  .step-lbl {
-    font-size: 0.62rem;
-    color: var(--muted);
-    text-align: center;
-    max-width: 60px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .step.active .step-lbl, .step.done .step-lbl { color: var(--navy); font-weight: 600; }
-
-  /* PROCESS STEPS */
-  .process-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-  .process-step {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-  }
-  .ps-num {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--navy);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-  .ps-content h4 { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-  .ps-content p  { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
-
-  /* RESPONSIVE */
-  @media (max-width: 600px) {
-    .slide-title { font-size: 1.45rem; }
-    .characters { gap: 12px; }
-    .avatar { width: 56px; height: 56px; font-size: 1.5rem; }
-  }
+/* ── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media(max-width:600px){
+  .screen-title{font-size:1.45rem}
+  .cert-wrapper{padding:32px 20px}
+  .cert-name{font-size:1.5rem}
+  .cert-title{font-size:1.4rem}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <span class="course-title">When Employees Need Support</span>
-  <span class="badge">Interactive</span>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div id="live-region" aria-live="polite" aria-atomic="true" role="status"></div>
+
+<header role="banner">
+  <span class="header-title">When Employees Need Support</span>
+  <span class="header-badge" aria-hidden="true">eLearning</span>
 </header>
-<div class="progress-bar-wrap">
-  <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+<div class="progress-wrap" role="progressbar" aria-label="Module progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress-bar-wrap">
+  <div class="progress-fill" id="progress-fill" style="width:0%"></div>
 </div>
 
-<div class="module-container">
+<main id="main-content" tabindex="-1">
 
-  <!-- STEP TRACKER -->
-  <div class="step-tracker" id="stepTracker"></div>
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 0: WELCOME / NAME INPUT
+══════════════════════════════════════════════════════ -->
+<section class="screen active" id="screen-welcome" aria-labelledby="welcome-title">
+  <div class="eyebrow">Welcome</div>
+  <h1 class="screen-title large" id="welcome-title">When Employees Need Support</h1>
+  <p class="body-text">A supervisor's guide to workplace accommodations under the ADA, PWFA, and Title VII. This module covers four real-world scenarios supervisors encounter most often.</p>
+  <div class="card">
+    <div class="form-group">
+      <label class="form-label" for="learner-name">Your full name</label>
+      <input class="form-input" type="text" id="learner-name" name="learner-name" autocomplete="name" placeholder="e.g. Jordan Smith" aria-describedby="name-hint" required/>
+      <div class="form-hint" id="name-hint">Your name will appear on your certificate of completion.</div>
+    </div>
+    <div class="callout info" role="note">
+      <div class="callout-title">ℹ️ About this module</div>
+      Six scenarios. Each includes a branching decision, consequence scenes, and a knowledge check. You must pass all six knowledge checks to receive your certificate. Estimated time: 45 to 60 minutes.
+    </div>
+    <div class="nav-row" style="justify-content:flex-end">
+      <button class="btn btn-primary" id="start-btn" onclick="startModule()" aria-label="Begin the training module">Begin Training →</button>
+    </div>
+  </div>
+</section>
 
-  <!-- ===================== SLIDE 0: TITLE ===================== -->
-  <div class="slide active" id="slide-0">
-    <div class="scene-label">Welcome</div>
-    <h1 class="slide-title">When Employees Need Support</h1>
-    <div class="narrator">
-      <strong>A supervisor's guide to workplace accommodations under the ADA and PWFA.</strong><br><br>
-      In this module, you will follow Marcus, a manager with good intentions and a talent for saying the wrong thing at the wrong time, as he navigates an employee accommodation request. You will help him (and yourself) learn the right moves.<br><br>
-      Estimated time: <strong>10–12 minutes.</strong>
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 1: SCENARIO HUB
+══════════════════════════════════════════════════════ -->
+<section class="screen" id="screen-hub" aria-labelledby="hub-title">
+  <div class="eyebrow">Scenario Selector</div>
+  <h1 class="screen-title" id="hub-title">Choose a Scenario</h1>
+  <p class="body-text">You must complete all six scenarios to earn your certificate. Select any available scenario to begin.</p>
+
+  <div class="hub-progress" role="group" aria-label="Overall completion progress">
+    <div class="hub-prog-label">Scenarios completed</div>
+    <div class="hub-prog-bar" aria-hidden="true"><div class="hub-prog-fill" id="hub-prog-fill" style="width:0%"></div></div>
+    <div class="hub-prog-count" id="hub-prog-count" aria-live="polite">0 of 6</div>
+  </div>
+
+  <div class="scenario-grid" role="list" aria-label="Available training scenarios">
+    <button class="scenario-card" id="sc-btn-0" onclick="launchScenario(0)" role="listitem" aria-label="Scenario 1: Employee Discloses a Need. ADA slash PWFA. Not yet completed.">
+      <div class="sc-number">Scenario 01</div>
+      <div class="sc-title">Employee Discloses a Need</div>
+      <div class="sc-law">ADA / PWFA</div>
+      <div class="sc-chars">👨‍💼 Marcus &amp; 🧑‍💻 Jordan</div>
+      <div class="sc-status" aria-hidden="true" id="sc-status-0">○</div>
+    </button>
+    <button class="scenario-card" id="sc-btn-1" onclick="launchScenario(1)" role="listitem" aria-label="Scenario 2: Religious Accommodation Request. Title VII. Not yet completed.">
+      <div class="sc-number">Scenario 02</div>
+      <div class="sc-title">Religious Accommodation Request</div>
+      <div class="sc-law">Title VII</div>
+      <div class="sc-chars">👩‍🏫 Diana &amp; 🧑‍🦱 Tariq</div>
+      <div class="sc-status" aria-hidden="true" id="sc-status-1">○</div>
+    </button>
+    <button class="scenario-card" id="sc-btn-2" onclick="launchScenario(2)" role="listitem" aria-label="Scenario 3: Employee Returns from Leave. ADA slash FMLA. Not yet completed.">
+      <div class="sc-number">Scenario 03</div>
+      <div class="sc-title">Return from Leave with Restrictions</div>
+      <div class="sc-law">ADA / FMLA</div>
+      <div class="sc-chars">👨‍💼 Greg &amp; 👩‍💼 Simone</div>
+      <div class="sc-status" aria-hidden="true" id="sc-status-2">○</div>
+    </button>
+    <button class="scenario-card" id="sc-btn-3" onclick="launchScenario(3)" role="listitem" aria-label="Scenario 4: Performance Issue Intersects with Disability. ADA. Not yet completed.">
+      <div class="sc-number">Scenario 04</div>
+      <div class="sc-title">Performance Intersects with Disability</div>
+      <div class="sc-law">ADA</div>
+      <div class="sc-chars">👩‍💼 Carmen &amp; 🧑‍🦽 Devon</div>
+      <div class="sc-status" aria-hidden="true" id="sc-status-3">○</div>
+    </button>
+    <button class="scenario-card" id="sc-btn-4" onclick="launchScenario(4)" role="listitem" aria-label="Scenario 5: Leave for a Pregnancy-Related Condition. PWFA. Not yet completed.">
+      <div class="sc-number">Scenario 05</div>
+      <div class="sc-title">Leave for a Pregnancy-Related Condition</div>
+      <div class="sc-law">PWFA</div>
+      <div class="sc-chars">👨‍🍳 Rafael &amp; 👩‍🦱 Priya</div>
+      <div class="sc-status" aria-hidden="true" id="sc-status-4">○</div>
+    </button>
+    <button class="scenario-card" id="sc-btn-5" onclick="launchScenario(5)" role="listitem" aria-label="Scenario 6: Postpartum Lactation Accommodations. PWFA slash PUMP Act. Not yet completed.">
+      <div class="sc-number">Scenario 06</div>
+      <div class="sc-title">Postpartum Lactation Accommodations</div>
+      <div class="sc-law">PWFA / PUMP Act</div>
+      <div class="sc-chars">👩‍💼 Keisha &amp; 👩‍🍼 Amara</div>
+      <div class="sc-status" aria-hidden="true" id="sc-status-5">○</div>
+    </button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SCENARIO CONTAINER (slides injected here)
+══════════════════════════════════════════════════════ -->
+<section class="screen" id="screen-scenario" aria-label="Active training scenario">
+  <div id="scenario-slides"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN: CERTIFICATE
+══════════════════════════════════════════════════════ -->
+<section class="screen" id="cert-screen" aria-labelledby="cert-heading">
+  <div class="eyebrow">Module Complete</div>
+  <h1 class="screen-title" id="cert-heading">You have completed all four scenarios.</h1>
+
+  <div class="score-grid" aria-label="Scenario scores" role="list">
+    <div class="score-card" id="score-card-0" role="listitem">
+      <div class="score-num" id="score-num-0">—</div>
+      <div class="score-lbl">Scenario 01</div>
+      <div class="score-status" id="score-status-0"></div>
     </div>
-    <div class="characters">
-      <div class="character">
-        <div class="avatar marcus">👨‍💼</div>
-        <div class="char-name">Marcus</div>
-        <div class="char-role">Department Supervisor</div>
-      </div>
-      <div class="character">
-        <div class="avatar jordan">🧑‍💻</div>
-        <div class="char-name">Jordan</div>
-        <div class="char-role">Staff Member</div>
-      </div>
-      <div class="character">
-        <div class="avatar priya">👩‍⚕️</div>
-        <div class="char-name">Dr. Patel</div>
-        <div class="char-role">ADA/Accommodations Coordinator</div>
-      </div>
+    <div class="score-card" id="score-card-1" role="listitem">
+      <div class="score-num" id="score-num-1">—</div>
+      <div class="score-lbl">Scenario 02</div>
+      <div class="score-status" id="score-status-1"></div>
     </div>
-    <div class="callout info">
-      <div class="callout-title">ℹ️ Learning Objectives</div>
-      <ul style="padding-left:16px; margin-top:6px; line-height:1.8; font-size:0.9rem;">
-        <li>Recognize what triggers an employer's duty to engage in the interactive process</li>
-        <li>Know what supervisors should and should not do when an employee discloses a need</li>
-        <li>Understand the role of your organization's ADA/Accommodations Coordinator</li>
-        <li>Apply the accommodation process correctly from disclosure to resolution</li>
-      </ul>
+    <div class="score-card" id="score-card-2" role="listitem">
+      <div class="score-num" id="score-num-2">—</div>
+      <div class="score-lbl">Scenario 03</div>
+      <div class="score-status" id="score-status-2"></div>
     </div>
-    <div class="nav-row">
-      <div></div>
-      <button class="btn btn-primary" onclick="goTo(1)">Begin →</button>
+    <div class="score-card" id="score-card-3" role="listitem">
+      <div class="score-num" id="score-num-3">—</div>
+      <div class="score-lbl">Scenario 04</div>
+      <div class="score-status" id="score-status-3"></div>
+    </div>
+    <div class="score-card" id="score-card-4" role="listitem">
+      <div class="score-num" id="score-num-4">—</div>
+      <div class="score-lbl">Scenario 05</div>
+      <div class="score-status" id="score-status-4"></div>
+    </div>
+    <div class="score-card" id="score-card-5" role="listitem">
+      <div class="score-num" id="score-num-5">—</div>
+      <div class="score-lbl">Scenario 06</div>
+      <div class="score-status" id="score-status-5"></div>
     </div>
   </div>
 
-  <!-- ===================== SLIDE 1: THE DISCLOSURE ===================== -->
-  <div class="slide" id="slide-1">
-    <div class="scene-label">Scene 1: The Hallway Conversation</div>
-    <h2 class="slide-title">Jordan has something to tell Marcus.</h2>
-    <div class="narrator">
-      It is Tuesday morning. Marcus is on his third cup of coffee and his second attempt to find a parking spot. Jordan catches him just inside the building entrance.
-    </div>
-    <div class="character-scene">
-      <div class="dialogue">
-        <div class="bubble-wrap">
-          <div class="bubble-avatar jordan">🧑‍💻</div>
-          <div class="bubble">
-            <div class="speaker">Jordan</div>
-            Hey Marcus, do you have a minute? I've been dealing with some health stuff lately. My doctor thinks I might need some changes to how I'm working. I'm not sure what that looks like yet, but I wanted to give you a heads up.
-          </div>
-        </div>
-        <div class="bubble-wrap right">
-          <div class="bubble-avatar marcus">👨‍💼</div>
-          <div class="bubble">
-            <div class="speaker">Marcus</div>
-            Oh. Okay. Thanks for letting me know. Is it… serious? Like, what kind of health stuff are we talking about?
-          </div>
-        </div>
-        <div class="bubble-wrap">
-          <div class="bubble-avatar jordan">🧑‍💻</div>
-          <div class="bubble">
-            <div class="speaker">Jordan</div>
-            I'd rather not get into the details. I just know I might need some flexibility with my schedule or my workspace.
-          </div>
-        </div>
+  <div class="cert-wrapper" role="region" aria-label="Certificate of completion">
+    <div class="cert-seal" aria-hidden="true">🏛️</div>
+    <div class="cert-org">Brightstead Consulting</div>
+    <div class="cert-presents">This certifies that</div>
+    <div class="cert-name" id="cert-name-display">—</div>
+    <div class="cert-divider" aria-hidden="true"></div>
+    <div class="cert-title">Certificate of Completion</div>
+    <div class="cert-subtitle">When Employees Need Support: Supervisor Accommodations Training</div>
+    <div class="cert-for">Has successfully completed all six scenario modules covering workplace accommodation obligations under the Americans with Disabilities Act (ADA), the Pregnant Workers Fairness Act (PWFA), the PUMP Act, and Title VII of the Civil Rights Act.</div>
+    <div class="cert-meta">
+      <div class="cert-meta-item">
+        <div class="cert-meta-label">Date Completed</div>
+        <div class="cert-meta-value" id="cert-date">—</div>
+      </div>
+      <div class="cert-meta-item">
+        <div class="cert-meta-label">Total Score</div>
+        <div class="cert-meta-value" id="cert-score">—</div>
+      </div>
+      <div class="cert-meta-item">
+        <div class="cert-meta-label">Issued By</div>
+        <div class="cert-meta-value">Brightstead Consulting</div>
       </div>
     </div>
-    <div class="callout warning">
-      <div class="callout-title">⚠️ Notice anything?</div>
-      Jordan did not use the words "ADA," "disability," or "accommodation." That does not matter. A request for a change at work related to a medical condition is enough to trigger your organization's obligation to respond.
-    </div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(2)">Continue →</button>
-    </div>
   </div>
 
-  <!-- ===================== SLIDE 2: CHOICE 1 ===================== -->
-  <div class="slide" id="slide-2">
-    <div class="scene-label">Your Turn: Scene 1</div>
-    <h2 class="slide-title">What should Marcus do next?</h2>
-    <div class="narrator">
-      Marcus is standing in the hallway, coffee in hand, mildly panicked. He has options. Choose the best one.
-    </div>
-    <div class="choices" id="choices-2">
-      <button class="choice-btn" onclick="handleChoice(2,'A')">
-        <span class="choice-label">A</span>
-        Ask Jordan to provide a doctor's note explaining the diagnosis before doing anything else.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(2,'B')">
-        <span class="choice-label">B</span>
-        Tell Jordan this sounds like something HR handles, and move on with his morning.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(2,'C')">
-        <span class="choice-label">C</span>
-        Thank Jordan for the heads up, express support, and let Jordan know you will connect them with the Accommodations Coordinator right away.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(2,'D')">
-        <span class="choice-label">D</span>
-        Offer to just move Jordan's desk closer to the bathroom and call it done.
-      </button>
-    </div>
-    <div class="feedback-box" id="feedback-2"></div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
-      <button class="btn btn-primary" id="next-2" onclick="goTo(3)" disabled>Continue →</button>
-    </div>
+  <div class="nav-row" style="justify-content:center;gap:16px">
+    <button class="btn btn-primary" onclick="window.print()" aria-label="Print your certificate of completion">🖨️ Print Certificate</button>
+    <button class="btn btn-secondary" onclick="showHub()" aria-label="Return to scenario hub to review scenarios">↩ Back to Hub</button>
   </div>
+</section>
 
-  <!-- ===================== SLIDE 3: MARCUS STUMBLES ===================== -->
-  <div class="slide" id="slide-3">
-    <div class="scene-label">Scene 2: Marcus Improvises</div>
-    <h2 class="slide-title">Marcus decides to handle it himself.</h2>
-    <div class="narrator">
-      In an alternate universe (the one where Marcus did not choose wisely), things go sideways. Let's visit that universe briefly. It is instructive.
-    </div>
-    <div class="character-scene">
-      <div class="dialogue">
-        <div class="bubble-wrap right">
-          <div class="bubble-avatar marcus">👨‍💼</div>
-          <div class="bubble">
-            <div class="speaker">Marcus</div>
-            Okay Jordan, I hear you. Let me just ask: is this a permanent thing? Because if it's temporary, maybe we just adjust your schedule for a few weeks and see how it goes.
-          </div>
-        </div>
-        <div class="bubble-wrap">
-          <div class="bubble-avatar jordan">🧑‍💻</div>
-          <div class="bubble">
-            <div class="speaker">Jordan</div>
-            I… don't really know yet. My doctor hasn't finished the evaluation.
-          </div>
-        </div>
-        <div class="bubble-wrap right">
-          <div class="bubble-avatar marcus">👨‍💼</div>
-          <div class="bubble">
-            <div class="speaker">Marcus</div>
-            Gotcha. And what exactly is the condition? I want to make sure I understand what we're dealing with.
-          </div>
-        </div>
-        <div class="bubble-wrap">
-          <div class="bubble-avatar jordan">🧑‍💻</div>
-          <div class="bubble">
-            <div class="speaker">Jordan</div>
-            <em>...I'm not really comfortable sharing that.</em>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="callout danger">
-      <div class="callout-title">🚫 What went wrong?</div>
-      Marcus made two classic mistakes: he probed for a diagnosis (which he is not entitled to), and he tried to evaluate the request himself. Supervisors are not authorized to conduct the interactive process. That is the Coordinator's role.
-    </div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(4)">Continue →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 4: WHAT NOT TO ASK ===================== -->
-  <div class="slide" id="slide-4">
-    <div class="scene-label">Know the Rules</div>
-    <h2 class="slide-title">What supervisors should and should not do.</h2>
-    <div class="key-points">
-      <h3>✅ When an employee discloses a need, supervisors should:</h3>
-      <ul>
-        <li><div class="icon">🤝</div><div>Express support and thank the employee for sharing.</div></li>
-        <li><div class="icon">📞</div><div>Connect the employee to your organization's ADA/Accommodations Coordinator promptly.</div></li>
-        <li><div class="icon">🔒</div><div>Keep the conversation confidential. This information is not for team meetings or hallway chats.</div></li>
-        <li><div class="icon">📋</div><div>Cooperate with the Coordinator when asked for information about job duties or the work environment.</div></li>
-      </ul>
-    </div>
-    <div class="key-points" style="border-color:#f87171;">
-      <h3 style="color:#c0392b;">🚫 Supervisors should NOT:</h3>
-      <ul>
-        <li><div class="icon">🩺</div><div>Ask for a diagnosis or probe for medical details beyond what is relevant to the request.</div></li>
-        <li><div class="icon">⚖️</div><div>Make their own determination about whether someone qualifies for an accommodation.</div></li>
-        <li><div class="icon">🛠️</div><div>Implement informal "fixes" without going through the interactive process.</div></li>
-        <li><div class="icon">🗣️</div><div>Share the employee's health information with other staff or managers.</div></li>
-        <li><div class="icon">⏳</div><div>Delay. Unreasonable delays can themselves be a legal violation.</div></li>
-      </ul>
-    </div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(5)">Continue →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 5: DR. PATEL ENTERS ===================== -->
-  <div class="slide" id="slide-5">
-    <div class="scene-label">Scene 3: Enter Dr. Patel</div>
-    <h2 class="slide-title">The Coordinator takes the wheel.</h2>
-    <div class="narrator">
-      Back in the correct universe: Marcus did the right thing and connected Jordan to Dr. Patel, the organization's ADA/Accommodations Coordinator. Two days later, Dr. Patel calls Marcus.
-    </div>
-    <div class="character-scene">
-      <div class="dialogue">
-        <div class="bubble-wrap">
-          <div class="bubble-avatar priya">👩‍⚕️</div>
-          <div class="bubble">
-            <div class="speaker">Dr. Patel, Accommodations Coordinator</div>
-            Hi Marcus, thanks for the referral. I've connected with Jordan and we've started the interactive process. I do have a few questions for you about the role.
-          </div>
-        </div>
-        <div class="bubble-wrap right">
-          <div class="bubble-avatar marcus">👨‍💼</div>
-          <div class="bubble">
-            <div class="speaker">Marcus</div>
-            Of course. What do you need?
-          </div>
-        </div>
-        <div class="bubble-wrap">
-          <div class="bubble-avatar priya">👩‍⚕️</div>
-          <div class="bubble">
-            <div class="speaker">Dr. Patel</div>
-            I'll need the essential functions of Jordan's position, a description of the physical work environment, and whether there's any flexibility in scheduling. I do not need you to weigh in on whether Jordan qualifies. That determination sits with this office.
-          </div>
-        </div>
-        <div class="bubble-wrap right">
-          <div class="bubble-avatar marcus">👨‍💼</div>
-          <div class="bubble">
-            <div class="speaker">Marcus</div>
-            Got it. I can have the job description and a site walkthrough ready by end of week. And, just to confirm: I should not be discussing this with anyone else on the team?
-          </div>
-        </div>
-        <div class="bubble-wrap">
-          <div class="bubble-avatar priya">👩‍⚕️</div>
-          <div class="bubble">
-            <div class="speaker">Dr. Patel</div>
-            Correct. If implementation requires any team-facing changes, we will handle the communication together. We will do it without disclosing Jordan's medical information. 
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(6)">Continue →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 6: THE PROCESS ===================== -->
-  <div class="slide" id="slide-6">
-    <div class="scene-label">The Process</div>
-    <h2 class="slide-title">How the interactive process works.</h2>
-    <div class="narrator">
-      The interactive process is a structured, good-faith conversation between the organization and the employee to identify an effective accommodation. Here is how it flows.
-    </div>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="ps-num">1</div>
-        <div class="ps-content">
-          <h4>Disclosure / Request</h4>
-          <p>Employee communicates a need for a change at work related to a health condition. No magic words required.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="ps-num">2</div>
-        <div class="ps-content">
-          <h4>Supervisor Refers</h4>
-          <p>Supervisor connects the employee to the ADA/Accommodations Coordinator without delay or interrogation.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="ps-num">3</div>
-        <div class="ps-content">
-          <h4>Coordinator Engages</h4>
-          <p>Coordinator meets with the employee, gathers documentation as needed, and reviews job functions with the supervisor.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="ps-num">4</div>
-        <div class="ps-content">
-          <h4>Accommodation Identified</h4>
-          <p>The organization and employee identify an effective accommodation. It does not have to be the employee's preferred option. It must be effective.</p>
-        </div>
-      </div>
-      <div class="process-step">
-        <div class="ps-num">5</div>
-        <div class="ps-content">
-          <h4>Implementation & Follow-Up</h4>
-          <p>Accommodation is put in place. The Coordinator follows up to confirm it is working and adjusts if circumstances change.</p>
-        </div>
-      </div>
-    </div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(5)">← Back</button>
-      <button class="btn btn-primary" onclick="goTo(7)">Knowledge Check →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 7: KNOWLEDGE CHECK 1 ===================== -->
-  <div class="slide" id="slide-7">
-    <div class="scene-label">Knowledge Check: Question 1 of 3</div>
-    <h2 class="slide-title">An employee tells you they "need Fridays off for a while." No diagnosis mentioned. What is your obligation?</h2>
-    <div class="choices" id="choices-7">
-      <button class="choice-btn" onclick="handleChoice(7,'A')">
-        <span class="choice-label">A</span>
-        None. Without a diagnosis, there is no accommodation request.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(7,'B')">
-        <span class="choice-label">B</span>
-        Refer them to the Accommodations Coordinator. The request does not require magic words.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(7,'C')">
-        <span class="choice-label">C</span>
-        Approve the Fridays off yourself since the request seems straightforward.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(7,'D')">
-        <span class="choice-label">D</span>
-        Ask them to put the request in writing with a doctor's signature first.
-      </button>
-    </div>
-    <div class="feedback-box" id="feedback-7"></div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(6)">← Back</button>
-      <button class="btn btn-primary" id="next-7" onclick="goTo(8)" disabled>Next Question →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 8: KNOWLEDGE CHECK 2 ===================== -->
-  <div class="slide" id="slide-8">
-    <div class="scene-label">Knowledge Check: Question 2 of 3</div>
-    <h2 class="slide-title">The Accommodations Coordinator asks you about Jordan's job. You should share:</h2>
-    <div class="choices" id="choices-8">
-      <button class="choice-btn" onclick="handleChoice(8,'A')">
-        <span class="choice-label">A</span>
-        Nothing. The Coordinator should get everything from Jordan directly.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(8,'B')">
-        <span class="choice-label">B</span>
-        The essential functions of Jordan's role, physical environment details, and scheduling flexibility. Not your personal opinion on whether Jordan "deserves" an accommodation.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(8,'C')">
-        <span class="choice-label">C</span>
-        Everything you know about Jordan's medical history and how it has affected their performance.
-      </button>
-      <button class="choice-btn" onclick="handleChoice(8,'D')">
-        <span class="choice-label">D</span>
-        Only what your HR handbook says, word for word.
-      </button>
-    </div>
-    <div class="feedback-box" id="feedback-8"></div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(7)">← Back</button>
-      <button class="btn btn-primary" id="next-8" onclick="goTo(9)" disabled>Next Question →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 9: KNOWLEDGE CHECK 3 ===================== -->
-  <div class="slide" id="slide-9">
-    <div class="scene-label">Knowledge Check: Question 3 of 3</div>
-    <h2 class="slide-title">The accommodation is approved. Your team asks why Jordan now works different hours. You say:</h2>
-    <div class="choices" id="choices-9">
-      <button class="choice-btn" onclick="handleChoice(9,'A')">
-        <span class="choice-label">A</span>
-        "Jordan has a medical condition that requires schedule flexibility."
-      </button>
-      <button class="choice-btn" onclick="handleChoice(9,'B')">
-        <span class="choice-label">B</span>
-        "Jordan worked something out with HR. I'm not in a position to share the details, but the arrangement is approved."
-      </button>
-      <button class="choice-btn" onclick="handleChoice(9,'C')">
-        <span class="choice-label">C</span>
-        "You will have to ask Jordan."
-      </button>
-      <button class="choice-btn" onclick="handleChoice(9,'D')">
-        <span class="choice-label">D</span>
-        Ignore the question entirely and hope it goes away.
-      </button>
-    </div>
-    <div class="feedback-box" id="feedback-9"></div>
-    <div class="nav-row">
-      <button class="btn btn-secondary" onclick="goTo(8)">← Back</button>
-      <button class="btn btn-primary" id="next-9" onclick="goTo(10)" disabled>See Results →</button>
-    </div>
-  </div>
-
-  <!-- ===================== SLIDE 10: COMPLETION ===================== -->
-  <div class="slide" id="slide-10">
-    <div class="scene-label">Module Complete</div>
-    <div class="completion-hero">
-      <div class="trophy">🏆</div>
-      <h2>You finished. And so did Marcus.</h2>
-      <p>He even made it to his parking spot eventually.</p>
-      <div class="score-display">
-        <div class="score-item">
-          <div class="score-num" id="finalScore">—</div>
-          <div class="score-lbl">Knowledge Check Score</div>
-        </div>
-        <div class="score-item">
-          <div class="score-num">3</div>
-          <div class="score-lbl">Scenarios Completed</div>
-        </div>
-      </div>
-    </div>
-    <div class="key-points">
-      <h3>🔑 The Big Three</h3>
-      <ul>
-        <li><div class="icon">1️⃣</div><div><strong>Refer, do not resolve.</strong> When an employee discloses a need, your job is to connect them to the Accommodations Coordinator. Do not evaluate, diagnose, or fix it yourself.</div></li>
-        <li><div class="icon">2️⃣</div><div><strong>You do not need a diagnosis.</strong> A request for a change at work related to a health condition is enough. The magic words do not matter.</div></li>
-        <li><div class="icon">3️⃣</div><div><strong>Confidentiality is not optional.</strong> Medical information stays between you, the employee, and the Coordinator. It does not go to the team.</div></li>
-      </ul>
-    </div>
-    <div class="callout success">
-      <div class="callout-title">✅ What to do right now</div>
-      Save the contact information for your organization's ADA/Accommodations Coordinator somewhere you can find it quickly. You will need it before you expect to.
-    </div>
-    <div class="nav-row" style="justify-content:center;">
-      <button class="btn btn-primary" onclick="restartModule()">↩ Restart Module</button>
-    </div>
-  </div>
-
-</div><!-- /module-container -->
+</main>
 
 <script>
-  // ── CONFIG ──────────────────────────────────────────────────
-  const TOTAL_SLIDES = 11;
-  const STEPS = [
-    { label: "Intro" },
-    { label: "Scene 1" },
-    { label: "Choice" },
-    { label: "Mistakes" },
-    { label: "Rules" },
-    { label: "Scene 2" },
-    { label: "Process" },
-    { label: "Q1" },
-    { label: "Q2" },
-    { label: "Q3" },
-    { label: "Done" },
-  ];
+// ── STATE ────────────────────────────────────────────────────────────────────
+let learnerName = '';
+let currentScenario = -1;
+let currentSlide = 0;
+const scenarioScores  = [null, null, null, null, null, null]; // score per scenario
+const scenarioPassed  = [false, false, false, false, false, false];
+const scenarioAnswers = [{}, {}, {}, {}, {}, {}];
 
-  const CORRECT = { 2: 'C', 7: 'B', 8: 'B', 9: 'B' };
+// ── SCENARIO DATA ─────────────────────────────────────────────────────────────
+const SCENARIOS = [
 
-  const FEEDBACK = {
-    2: {
-      A: { correct: false, title: "Not quite.", body: "Supervisors cannot demand a diagnosis upfront. Documentation requests go through the Accommodations Coordinator, not directly from supervisor to employee." },
-      B: { correct: false, title: "Close, but not quite.", body: "The Accommodations Coordinator is the right person, but \"move on with his morning\" is not an acceptable response. Prompt action is required." },
-      C: { correct: true,  title: "That's the right call.", body: "Marcus acknowledged Jordan's disclosure with support and immediately involved the right resource. That is exactly the playbook." },
-      D: { correct: false, title: "Well-intentioned, but no.", body: "Informal fixes without going through the interactive process can create legal exposure, even if the outcome seems reasonable. The process exists for good reason." },
-    },
-    7: {
-      A: { correct: false, title: "Not quite.", body: "Under the ADA and PWFA, employees do not need to use specific language or disclose a diagnosis to trigger the process. A request for a change related to a health condition is enough." },
-      B: { correct: true,  title: "Correct.", body: "The duty to engage in the interactive process is triggered by a request, not a diagnosis. Refer promptly." },
-      C: { correct: false, title: "Incorrect.", body: "Approving an accommodation yourself, even a seemingly simple one, bypasses the interactive process. That determination belongs to the Coordinator." },
-      D: { correct: false, title: "Not the right first step.", body: "You can cooperate with documentation requests later. The first step is a referral to the Coordinator, not a documentation demand from you." },
-    },
-    8: {
-      A: { correct: false, title: "Incorrect.", body: "The Coordinator needs your input on job functions and environment. That is specifically your lane. Refusing to engage delays the process." },
-      B: { correct: true,  title: "Exactly right.", body: "Supervisors provide job-related information: functions, environment, flexibility. Eligibility determinations are the Coordinator's responsibility, not yours." },
-      C: { correct: false, title: "No. This could cause real harm.", body: "You are not authorized to share medical history, and doing so could violate confidentiality obligations. Stick to job-related information." },
-      D: { correct: false, title: "Not quite.", body: "The Coordinator needs real, current information about the role, not a verbatim reading of a potentially outdated handbook." },
-    },
-    9: {
-      A: { correct: false, title: "Incorrect.", body: "Disclosing that Jordan has a medical condition violates confidentiality. Even true information can be impermissible to share." },
-      B: { correct: true,  title: "Well handled.", body: "This answer acknowledges the situation without disclosing protected information. It is honest and appropriately brief." },
-      C: { correct: false, title: "Not recommended.", body: "Deflecting to Jordan puts them in the position of either explaining their own medical situation or appearing evasive. Handle it at the supervisory level." },
-      D: { correct: false, title: "Tempting, but no.", body: "Silence invites speculation, which can be just as harmful as disclosure. A brief, neutral acknowledgment is the right approach." },
-    },
-  };
+  // ══ SCENARIO 0: EMPLOYEE DISCLOSES A NEED ══════════════════════════════════
+  {
+    id: 0,
+    title: "Employee Discloses a Need",
+    law: "ADA / PWFA",
+    slides: [
+      {
+        type: "intro",
+        eyebrow: "Scenario 01",
+        title: "Employee Discloses a Need",
+        body: "Marcus is a department supervisor. Jordan, one of his staff members, approaches him in the hallway with something personal to share. Pay attention to what Jordan says, and what Marcus does next.",
+        characters: [
+          {emoji:"👨‍💼", name:"Marcus", role:"Department Supervisor", cls:"marcus"},
+          {emoji:"🧑‍💻", name:"Jordan", role:"Staff Member", cls:"jordan"},
+          {emoji:"👩‍⚕️", name:"Dr. Patel", role:"ADA Coordinator", cls:"priya"},
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 1: The Hallway",
+        title: "Jordan has something to share.",
+        narrator: "It is Tuesday morning. Marcus is on his third cup of coffee. Jordan catches him just inside the building entrance.",
+        lines: [
+          {who:"Jordan", emoji:"🧑‍💻", cls:"jordan", right:false, text:"Hey Marcus, do you have a minute? I have been dealing with some health stuff lately. My doctor thinks I might need some changes to how I am working. I am not sure what that looks like yet, but I wanted to give you a heads up."},
+          {who:"Marcus", emoji:"👨‍💼", cls:"marcus", right:true, text:"Oh. Okay. Thanks for letting me know. Is it serious? Like, what kind of health stuff are we talking about?"},
+          {who:"Jordan", emoji:"🧑‍💻", cls:"jordan", right:false, text:"I would rather not get into the details. I just know I might need some flexibility with my schedule or my workspace."},
+        ],
+        callout: {type:"warning", title:"⚠️ Notice anything?", body:"Jordan did not use the words ADA, disability, or accommodation. That does not matter. A request for a change at work related to a medical condition is enough to trigger your organization's obligation to respond."}
+      },
+      {
+        type: "choice",
+        eyebrow: "Your Turn",
+        title: "What should Marcus do next?",
+        narrator: "Marcus is standing in the hallway, coffee in hand. He has options. Choose the best one.",
+        id: "s0q1",
+        options: [
+          {label:"A", text:"Ask Jordan to provide a doctor's note explaining the diagnosis before doing anything else."},
+          {label:"B", text:"Tell Jordan this sounds like something HR handles, and move on with his morning."},
+          {label:"C", text:"Thank Jordan for the heads up, express support, and connect Jordan to the ADA Coordinator right away."},
+          {label:"D", text:"Offer to move Jordan's desk closer to the bathroom and call it done."},
+        ],
+        correct: "C",
+        feedback: {
+          A:{correct:false, title:"Not quite.", body:"Supervisors cannot demand a diagnosis upfront. Documentation requests go through the ADA Coordinator, not directly from supervisor to employee."},
+          B:{correct:false, title:"Closer, but not quite.", body:"The ADA Coordinator is the right resource, but moving on without acting is not acceptable. Prompt referral is required."},
+          C:{correct:true,  title:"That is the right call.", body:"Marcus acknowledged Jordan's disclosure with support and immediately involved the right resource. That is exactly the playbook."},
+          D:{correct:false, title:"Well-intentioned, but no.", body:"Informal fixes without going through the interactive process create legal exposure, even if the outcome seems reasonable."},
+        }
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 2: What Goes Wrong",
+        title: "In another version, Marcus improvises.",
+        narrator: "In an alternate universe, Marcus decides to handle it himself. This is instructive.",
+        lines: [
+          {who:"Marcus", emoji:"👨‍💼", cls:"marcus", right:true, text:"Okay Jordan, I hear you. Let me just ask: is this a permanent thing? Because if it is temporary, maybe we just adjust your schedule for a few weeks."},
+          {who:"Jordan", emoji:"🧑‍💻", cls:"jordan", right:false, text:"I do not really know yet. My doctor has not finished the evaluation."},
+          {who:"Marcus", emoji:"👨‍💼", cls:"marcus", right:true, text:"What exactly is the condition? I want to understand what we are dealing with."},
+          {who:"Jordan", emoji:"🧑‍💻", cls:"jordan", right:false, text:"I am not comfortable sharing that."},
+        ],
+        callout: {type:"danger", title:"🚫 What went wrong?", body:"Marcus probed for a diagnosis he is not entitled to, and tried to evaluate the request himself. Supervisors do not conduct the interactive process. That is the Coordinator's role."}
+      },
+      {
+        type: "reference",
+        eyebrow: "Know the Rules",
+        title: "What supervisors should and should not do.",
+        dos: [
+          "Express support and thank the employee for sharing.",
+          "Connect the employee to the ADA Coordinator promptly.",
+          "Keep the conversation confidential.",
+          "Cooperate with the Coordinator on job duties and environment.",
+        ],
+        donts: [
+          "Ask for a diagnosis or probe for medical details.",
+          "Make your own determination about eligibility.",
+          "Implement informal fixes without the interactive process.",
+          "Share the employee's health information with staff.",
+          "Delay. Unreasonable delays can be a violation themselves.",
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 3: Dr. Patel Steps In",
+        title: "The Coordinator takes it from here.",
+        narrator: "Back in the correct universe: Marcus referred Jordan to Dr. Patel, the ADA Coordinator. Two days later, Dr. Patel calls Marcus.",
+        lines: [
+          {who:"Dr. Patel, ADA Coordinator", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Hi Marcus, thanks for the referral. I have connected with Jordan and started the interactive process. I have a few questions about the role."},
+          {who:"Marcus", emoji:"👨‍💼", cls:"marcus", right:true, text:"Of course. What do you need?"},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"I need the essential functions of Jordan's position, the physical work environment, and scheduling flexibility. I do not need you to weigh in on eligibility. That determination is mine."},
+          {who:"Marcus", emoji:"👨‍💼", cls:"marcus", right:true, text:"Got it. Should I say anything to the rest of the team?"},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Not yet. If implementation requires team-facing changes, we will handle that communication together, without disclosing Jordan's medical information."},
+        ]
+      },
+      {
+        type: "knowledge",
+        eyebrow: "Knowledge Check: Scenario 01",
+        title: "An employee tells you they need Fridays off for a while. No diagnosis mentioned. What is your obligation?",
+        id: "s0kq1",
+        options: [
+          {label:"A", text:"None. Without a diagnosis, there is no accommodation request."},
+          {label:"B", text:"Refer them to the ADA Coordinator. The request does not require formal language."},
+          {label:"C", text:"Approve the Fridays off yourself since the request seems simple."},
+          {label:"D", text:"Ask them to put the request in writing with a doctor's signature first."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Employees do not need to use specific language or disclose a diagnosis. A request for a change related to a health condition is enough."},
+          B:{correct:true,  title:"Correct.", body:"The duty to engage in the interactive process is triggered by the request, not a diagnosis. Refer promptly."},
+          C:{correct:false, title:"Incorrect.", body:"Approving an accommodation yourself bypasses the interactive process. That determination belongs to the Coordinator."},
+          D:{correct:false, title:"Not the right first step.", body:"The first step is always a referral to the Coordinator, not a documentation demand from you."},
+        }
+      },
+    ]
+  },
 
-  // ── STATE ────────────────────────────────────────────────────
-  let currentSlide = 0;
-  let answers = {};
-  let quizSlides = [7, 8, 9];
+  // ══ SCENARIO 1: RELIGIOUS ACCOMMODATION ════════════════════════════════════
+  {
+    id: 1,
+    title: "Religious Accommodation Request",
+    law: "Title VII",
+    slides: [
+      {
+        type: "intro",
+        eyebrow: "Scenario 02",
+        title: "Religious Accommodation Request",
+        body: "Diana is a team manager. Tariq, a staff member, has approached her about a scheduling conflict with his religious observance. What Diana does next matters more than she realizes.",
+        characters: [
+          {emoji:"👩‍🏫", name:"Diana", role:"Team Manager", cls:"marcus"},
+          {emoji:"🧑‍🦱", name:"Tariq", role:"Staff Member", cls:"jordan"},
+          {emoji:"👩‍⚕️", name:"Dr. Patel", role:"Accommodations Coordinator", cls:"priya"},
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 1: The Request",
+        title: "Tariq brings a scheduling concern.",
+        narrator: "Tariq knocks on Diana's office door on a Wednesday afternoon. He seems a little hesitant.",
+        lines: [
+          {who:"Tariq", emoji:"🧑‍🦱", cls:"jordan", right:false, text:"Hi Diana. I wanted to talk to you about the new Friday afternoon all-hands meeting. I observe the Sabbath starting at sundown on Fridays. I am worried I will not be able to attend consistently, especially in winter when sundown is earlier."},
+          {who:"Diana", emoji:"👩‍🏫", cls:"marcus", right:true, text:"Oh. Well, attendance at all-hands is pretty important. Can you just come for part of it?"},
+          {who:"Tariq", emoji:"🧑‍🦱", cls:"jordan", right:false, text:"I could try, but it depends on the season. I was hoping there might be a way to adjust, or maybe get the recording afterward."},
+        ],
+        callout: {type:"warning", title:"⚠️ What just happened?", body:"Tariq made a religious accommodation request under Title VII. Diana's instinct to push back on attendance is understandable, but acting on it without going through the accommodation process is a mistake."}
+      },
+      {
+        type: "choice",
+        eyebrow: "Your Turn",
+        title: "What should Diana do?",
+        narrator: "Diana has heard Tariq's request. She needs to respond. What is the right move?",
+        id: "s1q1",
+        options: [
+          {label:"A", text:"Tell Tariq the meeting time cannot change and he needs to find a way to make it work."},
+          {label:"B", text:"Immediately move the all-hands meeting to Thursday for everyone."},
+          {label:"C", text:"Thank Tariq for sharing, and refer him to the Accommodations Coordinator to begin the process."},
+          {label:"D", text:"Tell Tariq she will think about it and get back to him next month."},
+        ],
+        correct: "C",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Denying a religious accommodation request without engaging in the process is a potential Title VII violation. Diana does not have the authority to make this call unilaterally."},
+          B:{correct:false, title:"Not quite.", body:"While flexible scheduling may ultimately be the right accommodation, Diana should not make unilateral operational changes without going through the process. The Coordinator determines what is reasonable."},
+          C:{correct:true,  title:"Correct.", body:"Diana's job is to receive the request, respond with support, and refer Tariq to the Coordinator. The process does the rest."},
+          D:{correct:false, title:"Incorrect.", body:"Delay is itself a problem. Sitting on an accommodation request without acting is not a neutral choice. It is a failure to engage in the process."},
+        }
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 2: A Different Diana",
+        title: "What if Diana handles it herself?",
+        narrator: "In a parallel scenario, Diana decides she can resolve this without involving anyone else.",
+        lines: [
+          {who:"Diana", emoji:"👩‍🏫", cls:"marcus", right:true, text:"Look Tariq, I appreciate you telling me. I cannot move the meeting, but you can just leave a little early when you need to. Just try to catch the recording."},
+          {who:"Tariq", emoji:"🧑‍🦱", cls:"jordan", right:false, text:"So there is no formal process or anything?"},
+          {who:"Diana", emoji:"👩‍🏫", cls:"marcus", right:true, text:"I do not think we need to make this a big thing. We will just handle it as it comes up."},
+        ],
+        callout: {type:"danger", title:"🚫 Three problems here.", body:"First, Diana did not engage the formal accommodation process. Second, telling Tariq to leave early is an informal fix that may not actually meet his needs. Third, the phrase 'we will handle it as it comes up' creates unpredictability, which is itself a burden on Tariq's religious practice."}
+      },
+      {
+        type: "reference",
+        eyebrow: "Title VII: Key Points",
+        title: "Religious accommodation under Title VII.",
+        dos: [
+          "Refer the employee to the Accommodations Coordinator as soon as a religious need is raised.",
+          "Keep the conversation confidential.",
+          "Cooperate with the Coordinator on schedule and operational information.",
+          "Respond promptly. Delay can itself be a violation.",
+        ],
+        donts: [
+          "Unilaterally deny the request without engaging the process.",
+          "Make informal arrangements that bypass the formal process.",
+          "Ask the employee to prove their belief is sincere.",
+          "Assume you know what accommodation is reasonable.",
+          "Share the employee's religious information with the team.",
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 3: The Coordinator Weighs In",
+        title: "Dr. Patel finds a path forward.",
+        narrator: "Diana referred Tariq to Dr. Patel. A week later, Dr. Patel updates Diana on the process.",
+        lines: [
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Diana, thanks for the prompt referral. I have met with Tariq and reviewed the all-hands format. I have a few options I want to run by you."},
+          {who:"Diana", emoji:"👩‍🏫", cls:"marcus", right:true, text:"Of course. What are you thinking?"},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"A few possibilities. Moving the meeting to an earlier Friday slot. Providing a full recording with a summary document. Or excusing Tariq from attendance when the conflict arises with a structured catch-up process. I want to know which of these create an undue hardship operationally."},
+          {who:"Diana", emoji:"👩‍🏫", cls:"marcus", right:true, text:"An earlier start is doable. The recording is easy. Excusing him entirely would be harder given the Q and A portions."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Perfect. That gives me what I need. I will finalize the accommodation with Tariq and get back to you with next steps."},
+        ]
+      },
+      {
+        type: "knowledge",
+        eyebrow: "Knowledge Check: Scenario 02",
+        title: "An employee tells you their religious practice requires them to avoid working on a specific holiday. Your organization has that day scheduled as a regular workday. What do you do?",
+        id: "s1kq1",
+        options: [
+          {label:"A", text:"Tell the employee that company policy does not allow exceptions to the holiday schedule."},
+          {label:"B", text:"Immediately approve the day off without documenting anything."},
+          {label:"C", text:"Refer the employee to the Accommodations Coordinator to engage the interactive process."},
+          {label:"D", text:"Ask the employee to swap shifts with a colleague on their own."},
+        ],
+        correct: "C",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Company policy does not override Title VII obligations. An employer must engage in the interactive process before concluding an accommodation is not possible."},
+          B:{correct:false, title:"Not quite.", body:"Approving informally without documentation creates ambiguity and bypasses the process that protects both the employee and the organization."},
+          C:{correct:true,  title:"Correct.", body:"The Coordinator manages the interactive process. Your job is to refer and cooperate, not to evaluate or resolve the request unilaterally."},
+          D:{correct:false, title:"Incorrect.", body:"Placing the burden of finding an accommodation on the employee is not a substitute for the employer's obligation to engage in the interactive process."},
+        }
+      },
+    ]
+  },
 
-  // ── INIT ─────────────────────────────────────────────────────
-  buildStepTracker();
-  updateProgress();
+  // ══ SCENARIO 2: RETURN FROM LEAVE ══════════════════════════════════════════
+  {
+    id: 2,
+    title: "Return from Leave with Restrictions",
+    law: "ADA / FMLA",
+    slides: [
+      {
+        type: "intro",
+        eyebrow: "Scenario 03",
+        title: "Return from Leave with Restrictions",
+        body: "Greg is a facilities supervisor. Simone has been out on FMLA leave and is now returning to work with medical restrictions from her doctor. Greg is not sure what to do with the paperwork she handed him.",
+        characters: [
+          {emoji:"👨‍💼", name:"Greg", role:"Facilities Supervisor", cls:"marcus"},
+          {emoji:"👩‍💼", name:"Simone", role:"Facilities Staff", cls:"jordan"},
+          {emoji:"👩‍⚕️", name:"Dr. Patel", role:"ADA Coordinator", cls:"priya"},
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 1: First Day Back",
+        title: "Simone returns with a doctor's note.",
+        narrator: "Simone walks into Greg's office on her first day back, looking relieved to be there. She hands him a sheet of paper.",
+        lines: [
+          {who:"Simone", emoji:"👩‍💼", cls:"jordan", right:false, text:"Hi Greg. Good to be back. My doctor cleared me to return but with some restrictions. No lifting over 15 pounds and I need to alternate sitting and standing every 45 minutes or so. Here is the documentation."},
+          {who:"Greg", emoji:"👨‍💼", cls:"marcus", right:true, text:"Oh. Okay. A lot of your role involves lifting though. I am not sure how this works."},
+          {who:"Simone", emoji:"👩‍💼", cls:"jordan", right:false, text:"I understand. I am hoping we can figure something out. I really want to be here."},
+        ],
+        callout: {type:"warning", title:"⚠️ Greg has a documentation question and a process question.", body:"Simone has returned with medical restrictions. This is not just an HR paperwork situation. It is a potential accommodation request that requires the interactive process, even though Simone is already back at work."}
+      },
+      {
+        type: "choice",
+        eyebrow: "Your Turn",
+        title: "What should Greg do with Simone's documentation?",
+        narrator: "Greg is holding Simone's doctor's note. He has several options.",
+        id: "s2q1",
+        options: [
+          {label:"A", text:"Tell Simone she cannot return until her restrictions are fully lifted."},
+          {label:"B", text:"Accept the note, thank Simone, and immediately contact the ADA Coordinator to start the interactive process."},
+          {label:"C", text:"Redistribute Simone's lifting duties informally among other staff without telling anyone why."},
+          {label:"D", text:"File the note in Simone's personnel file and wait to see how things go."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Incorrect and potentially unlawful.", body:"Refusing to let an employee return because they have medical restrictions, without exploring accommodations, may violate both the ADA and FMLA. This is exactly when the interactive process applies."},
+          B:{correct:true,  title:"Correct.", body:"Greg's role is to accept the documentation, support Simone's return, and get the Coordinator involved immediately. The process determines what is feasible."},
+          C:{correct:false, title:"Not the right approach.", body:"Informal redistribution without a formal process creates ambiguity, possible resentment from colleagues, and no documented protection for Simone or the organization."},
+          D:{correct:false, title:"Incorrect.", body:"Filing and waiting is not engaging the interactive process. The obligation to act begins the moment Greg receives the documentation."},
+        }
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 2: Greg Goes It Alone",
+        title: "In another version, Greg improvises.",
+        narrator: "In a parallel scenario, Greg decides the restrictions are not a big deal and handles it himself.",
+        lines: [
+          {who:"Greg", emoji:"👨‍💼", cls:"marcus", right:true, text:"Okay Simone, I read the note. Here is what we will do. I will just have you work the front desk for a while and keep you off the floor jobs. That should cover it."},
+          {who:"Simone", emoji:"👩‍💼", cls:"jordan", right:false, text:"Is that a formal arrangement? Will it stay in place?"},
+          {who:"Greg", emoji:"👨‍💼", cls:"marcus", right:true, text:"I mean, it is just how we will do it for now. Nothing formal. It might change depending on staffing."},
+          {who:"Simone", emoji:"👩‍💼", cls:"jordan", right:false, text:"So I do not have any protection if things change?"},
+        ],
+        callout: {type:"danger", title:"🚫 The problem with informal.", body:"Greg created an arrangement with no documentation, no Coordinator involvement, and no certainty for Simone. If staffing changes and Greg reassigns her to floor work, she has no formal accommodation to point to. This exposes both Simone and the organization."}
+      },
+      {
+        type: "reference",
+        eyebrow: "Return from Leave: Key Points",
+        title: "What the law requires when an employee returns with restrictions.",
+        dos: [
+          "Accept the medical documentation without interrogating its contents.",
+          "Refer immediately to the ADA Coordinator to begin the interactive process.",
+          "Cooperate with the Coordinator on essential job functions and feasible modifications.",
+          "Document everything through the formal process.",
+        ],
+        donts: [
+          "Refuse to let the employee return without exploring accommodations first.",
+          "Create informal arrangements that are not documented or protected.",
+          "Tell the employee the restrictions make them unqualified for their role without going through the process.",
+          "Share the employee's medical restrictions with colleagues beyond what is operationally necessary.",
+          "Assume the restrictions are permanent or temporary without guidance from the Coordinator.",
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 3: The Right Process",
+        title: "Dr. Patel and Greg work through it together.",
+        narrator: "Greg referred Simone to Dr. Patel. Dr. Patel follows up with Greg to gather operational context.",
+        lines: [
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Greg, I have met with Simone and reviewed her restrictions. I need to understand which of her core duties involve lifting over 15 pounds."},
+          {who:"Greg", emoji:"👨‍💼", cls:"marcus", right:true, text:"The floor inspection rounds involve some equipment transport. That is the main lifting requirement. Front desk and documentation work would not trigger it."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Is there another staff member who could cover the transport piece on a temporary basis while Simone handles other core duties?"},
+          {who:"Greg", emoji:"👨‍💼", cls:"marcus", right:true, text:"Yes, that is workable. I have two other staff who could rotate that task."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Good. I will document this as an approved temporary accommodation and set a 90-day review. You will get a copy."},
+        ]
+      },
+      {
+        type: "knowledge",
+        eyebrow: "Knowledge Check: Scenario 03",
+        title: "An employee returns from FMLA leave and hands you a doctor's note restricting them from standing for more than 30 minutes at a time. Your first step is:",
+        id: "s2kq1",
+        options: [
+          {label:"A", text:"Tell the employee they cannot return until they are fully cleared with no restrictions."},
+          {label:"B", text:"Buy a standing desk and tell the employee that handles it."},
+          {label:"C", text:"Accept the documentation and refer the employee to the ADA Coordinator to start the interactive process."},
+          {label:"D", text:"Ask the employee's doctor directly what the condition is."},
+        ],
+        correct: "C",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Requiring full clearance before returning is often unlawful. The ADA requires employers to explore whether reasonable accommodation would allow the employee to perform the essential functions of their role."},
+          B:{correct:false, title:"Not the right approach.", body:"Purchasing equipment without going through the process is an informal fix. It may or may not be the right accommodation, and it has no documentation or formal protection behind it."},
+          C:{correct:true,  title:"Correct.", body:"Accept the documentation, express support, and refer to the Coordinator. The interactive process determines what accommodation is appropriate."},
+          D:{correct:false, title:"Incorrect and impermissible.", body:"You are not authorized to contact the employee's physician directly. Medical information flows through the Coordinator's process, not through you."},
+        }
+      },
+    ]
+  },
 
-  function buildStepTracker() {
-    const t = document.getElementById('stepTracker');
-    t.innerHTML = '';
-    STEPS.forEach((s, i) => {
-      if (i > 0) {
-        const line = document.createElement('div');
-        line.className = 'step-line';
-        line.id = `line-${i}`;
-        t.appendChild(line);
-      }
-      const step = document.createElement('div');
-      step.className = 'step' + (i === 0 ? ' active' : '');
-      step.id = `step-${i}`;
-      step.innerHTML = `<div class="step-dot">${i + 1}</div><div class="step-lbl">${s.label}</div>`;
-      t.appendChild(step);
-    });
+  // ══ SCENARIO 3: PERFORMANCE INTERSECTS WITH DISABILITY ═════════════════════
+  {
+    id: 3,
+    title: "Performance Intersects with Disability",
+    law: "ADA",
+    slides: [
+      {
+        type: "intro",
+        eyebrow: "Scenario 04",
+        title: "Performance Intersects with Disability",
+        body: "Carmen is a program director. Devon, one of her staff, has been missing deadlines and struggling to keep up. Carmen was about to begin a performance improvement process when Devon disclosed something unexpected.",
+        characters: [
+          {emoji:"👩‍💼", name:"Carmen", role:"Program Director", cls:"marcus"},
+          {emoji:"🧑‍🦽", name:"Devon", role:"Program Coordinator", cls:"jordan"},
+          {emoji:"👩‍⚕️", name:"Dr. Patel", role:"ADA Coordinator", cls:"priya"},
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 1: A Difficult Conversation",
+        title: "Devon discloses during a performance meeting.",
+        narrator: "Carmen has called Devon in to discuss three missed project deadlines over the past month. Midway through the conversation, Devon says something that changes the direction of the meeting.",
+        lines: [
+          {who:"Carmen", emoji:"👩‍💼", cls:"marcus", right:true, text:"Devon, I need us to talk about the deadline misses. This is the third time in a month. I want to understand what is going on."},
+          {who:"Devon", emoji:"🧑‍🦽", cls:"jordan", right:false, text:"I know. I am really sorry. I have been struggling more than I have let on. I was recently diagnosed with a condition that affects my concentration and processing speed. I have been trying to manage it on my own but it is not working."},
+          {who:"Carmen", emoji:"👩‍💼", cls:"marcus", right:true, text:"I appreciate you telling me that. I am not sure what that means for the performance situation though."},
+        ],
+        callout: {type:"warning", title:"⚠️ Two tracks just collided.", body:"Carmen was on a performance track. Devon just opened a potential accommodation track. These two processes are legally distinct and must be handled carefully. Carmen cannot proceed with discipline as if this disclosure did not happen."}
+      },
+      {
+        type: "choice",
+        eyebrow: "Your Turn",
+        title: "What should Carmen do now?",
+        narrator: "Devon has disclosed a medical condition mid-performance conversation. Carmen is in unfamiliar territory. What is the right response?",
+        id: "s3q1",
+        options: [
+          {label:"A", text:"Continue the performance improvement conversation as planned. The performance issues are real regardless of the diagnosis."},
+          {label:"B", text:"Tell Devon the disclosure does not change anything and issue the written warning today."},
+          {label:"C", text:"Pause the performance conversation, thank Devon for sharing, and refer Devon to the ADA Coordinator before taking any disciplinary action."},
+          {label:"D", text:"Tell Devon that the accommodation process will take too long and issue a warning to preserve the record."},
+        ],
+        correct: "C",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Proceeding with discipline immediately after a disability disclosure, without exploring accommodation, is precisely the fact pattern that generates ADA retaliation and discrimination claims. The two tracks must be separated."},
+          B:{correct:false, title:"Incorrect.", body:"Issuing a warning the same day as a disability disclosure, without any accommodation process, creates serious legal exposure. Even if the performance issues are legitimate, timing matters enormously."},
+          C:{correct:true,  title:"Correct.", body:"Carmen should pause, express support, and refer Devon to the Coordinator. The accommodation process must have a genuine chance to run before discipline resumes. This protects Devon and the organization."},
+          D:{correct:false, title:"Incorrect.", body:"Citing process length as a reason to skip it is not a defense. Speed is not a legal justification for bypassing accommodation obligations."},
+        }
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 2: What Carmen Should Not Do",
+        title: "In another version, Carmen presses forward.",
+        narrator: "In a parallel scenario, Carmen decides the performance record speaks for itself.",
+        lines: [
+          {who:"Carmen", emoji:"👩‍💼", cls:"marcus", right:true, text:"I hear you Devon, and I am sorry you are dealing with that. But the missed deadlines are a documented performance issue. I still need to move forward with the written warning today."},
+          {who:"Devon", emoji:"🧑‍🦽", cls:"jordan", right:false, text:"But I just told you this is related to my diagnosis. Does that not matter?"},
+          {who:"Carmen", emoji:"👩‍💼", cls:"marcus", right:true, text:"I think it is something you should bring up with HR separately. For today, I need to focus on the performance side."},
+        ],
+        callout: {type:"danger", title:"🚫 This is the fact pattern that generates claims.", body:"Carmen separated the tracks verbally but proceeded with discipline anyway. Telling Devon to bring it up with HR separately, while issuing a warning in the same meeting, does not insulate the organization. The timing alone creates the appearance of retaliation for the disclosure."}
+      },
+      {
+        type: "reference",
+        eyebrow: "When Performance and Disability Intersect",
+        title: "What supervisors must understand.",
+        dos: [
+          "Pause any disciplinary action the moment an employee discloses a disability-related concern.",
+          "Refer the employee to the ADA Coordinator immediately.",
+          "Allow the accommodation process a genuine opportunity to run before resuming performance action.",
+          "Consult with HR and the Coordinator before taking any further steps.",
+        ],
+        donts: [
+          "Issue discipline immediately after a disability disclosure.",
+          "Tell the employee the disclosure does not change the performance process.",
+          "Assume the performance issues are unrelated to the disability without exploration.",
+          "Use the accommodation process as an excuse to delay legitimate performance management indefinitely.",
+          "Handle both tracks simultaneously without Coordinator involvement.",
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 3: Two Tracks, One Process",
+        title: "Dr. Patel helps Carmen navigate both.",
+        narrator: "Carmen referred Devon to Dr. Patel and paused the performance process. Dr. Patel calls Carmen to coordinate.",
+        lines: [
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Carmen, thanks for pausing. That was the right call. I have started the interactive process with Devon. I want to flag that some of the deadline issues Devon described may be directly related to the condition. We need to assess that before you resume performance action."},
+          {who:"Carmen", emoji:"👩‍💼", cls:"marcus", right:true, text:"How long will this take? The performance issues are real and ongoing."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"I understand. We will move as quickly as we can. If an accommodation is identified, we will assess whether it would have prevented the performance issues. If the issues persist even with accommodation in place, the performance track can resume. These are distinct questions, and we need to answer the first one before the second."},
+          {who:"Carmen", emoji:"👩‍💼", cls:"marcus", right:true, text:"That makes sense. What do you need from me?"},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"A description of Devon's core deliverables and typical deadlines. And please hold off on any further performance documentation until I give you the green light."},
+        ]
+      },
+      {
+        type: "knowledge",
+        eyebrow: "Knowledge Check: Scenario 04",
+        title: "You are about to issue a formal written warning when the employee discloses they have a chronic condition affecting their work. You should:",
+        id: "s3kq1",
+        options: [
+          {label:"A", text:"Issue the warning anyway. The performance record is documented and the disclosure came too late."},
+          {label:"B", text:"Pause the disciplinary process, thank the employee for sharing, and refer them to the ADA Coordinator before taking further action."},
+          {label:"C", text:"Tell the employee the performance process and the accommodation process are separate and proceed with both simultaneously on your own."},
+          {label:"D", text:"Withdraw all prior performance documentation to avoid legal exposure."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"There is no 'too late' rule for disability disclosure. Issuing discipline immediately after a disclosure, regardless of the prior record, creates significant legal risk."},
+          B:{correct:true,  title:"Correct.", body:"Pause, express support, and refer to the Coordinator. The accommodation process must have a genuine opportunity to run before discipline resumes. This is the legally sound and organizationally defensible path."},
+          C:{correct:false, title:"Incorrect.", body:"Running both tracks simultaneously without Coordinator involvement is exactly the scenario that generates ADA claims. The Coordinator determines the sequence."},
+          D:{correct:false, title:"Incorrect.", body:"Withdrawing documented performance issues is not the answer and may create its own problems. The goal is not to erase the record but to ensure the accommodation process runs before discipline continues."},
+        }
+      },
+    ]
+  },
+// ══ SCENARIO 4: LEAVE FOR PREGNANCY-RELATED CONDITION ══════════════════════
+  {
+    id: 4,
+    title: "Leave for a Pregnancy-Related Condition",
+    law: "PWFA",
+    slides: [
+      {
+        type: "intro",
+        eyebrow: "Scenario 05",
+        title: "Leave for a Pregnancy-Related Condition",
+        body: "Rafael is a shift supervisor at a mid-sized organization. Priya, one of his staff members, has been experiencing a difficult pregnancy and approaches him about needing time away from work. Rafael has never dealt with a PWFA request before.",
+        characters: [
+          {emoji:"👨‍🍳", name:"Rafael", role:"Shift Supervisor", cls:"marcus"},
+          {emoji:"👩‍🦱", name:"Priya", role:"Staff Member", cls:"jordan"},
+          {emoji:"👩‍⚕️", name:"Dr. Patel", role:"Accommodations Coordinator", cls:"priya"},
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 1: The Request",
+        title: "Priya needs time away.",
+        narrator: "Priya asks to speak with Rafael privately after her shift. She looks exhausted and a little nervous.",
+        lines: [
+          {who:"Priya", emoji:"👩‍🦱", cls:"jordan", right:false, text:"Rafael, I wanted to talk to you about something personal. I am pregnant and my doctor has put me on modified activity due to some complications. She is recommending I take intermittent leave over the next few weeks, maybe a day or two at a time when things are rough. I did not want to just call in sick without explaining."},
+          {who:"Rafael", emoji:"👨‍🍳", cls:"marcus", right:true, text:"Oh. Okay. I appreciate you telling me. Honestly I am not sure how that works from a scheduling standpoint. We are already short-staffed."},
+          {who:"Priya", emoji:"👩‍🦱", cls:"jordan", right:false, text:"I understand. I am not trying to create problems. I just need to know what my options are."},
+        ],
+        callout: {type:"warning", title:"⚠️ The PWFA applies here.", body:"The Pregnant Workers Fairness Act requires employers to provide reasonable accommodations for known limitations related to pregnancy, childbirth, or related medical conditions. Intermittent leave is a recognized form of accommodation. Rafael's staffing concern is understandable but is not a reason to deny or delay engaging the process."}
+      },
+      {
+        type: "choice",
+        eyebrow: "Your Turn",
+        title: "What should Rafael do?",
+        narrator: "Rafael is caught off guard. He is genuinely short-staffed and uncertain about the process. What is the right response?",
+        id: "s4q1",
+        options: [
+          {label:"A", text:"Tell Priya he cannot guarantee her shifts will be covered and she should think carefully before requesting leave."},
+          {label:"B", text:"Thank Priya for telling him, express support, and refer her to the Accommodations Coordinator right away."},
+          {label:"C", text:"Tell Priya she should use her PTO for now and they will figure out a formal process later."},
+          {label:"D", text:"Ask Priya for her doctor's full medical records so he can evaluate the request himself."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Discouraging an employee from requesting an accommodation by raising operational concerns is itself a potential PWFA violation. Rafael's staffing situation is a factor the Coordinator considers, not a reason to push back on the employee."},
+          B:{correct:true,  title:"Correct.", body:"Rafael's role is to receive the request with support and refer Priya to the Coordinator immediately. Operational concerns are addressed through the interactive process, not by discouraging the request."},
+          C:{correct:false, title:"Not appropriate.", body:"Telling Priya to use PTO as a workaround without engaging the formal process denies her the protections she is entitled to under the PWFA. Informal arrangements are not a substitute."},
+          D:{correct:false, title:"Incorrect.", body:"Supervisors are not entitled to full medical records. The Coordinator manages what documentation is appropriate and necessary. Rafael has no role in that determination."},
+        }
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 2: Rafael Goes Off Script",
+        title: "In another version, Rafael improvises.",
+        narrator: "In a parallel scenario, Rafael tries to handle the situation on his own terms.",
+        lines: [
+          {who:"Rafael", emoji:"👨‍🍳", cls:"marcus", right:true, text:"Look Priya, I hear you. But honestly, if you are going to need to miss shifts we need to be realistic. Maybe this is not the right time to be working this schedule."},
+          {who:"Priya", emoji:"👩‍🦱", cls:"jordan", right:false, text:"Are you saying I should quit?"},
+          {who:"Rafael", emoji:"👨‍🍳", cls:"marcus", right:true, text:"No, I am not saying that. I am just saying we need to think about what is realistic for everyone."},
+          {who:"Priya", emoji:"👩‍🦱", cls:"jordan", right:false, text:"I am asking for intermittent leave because of a pregnancy complication. Is there a formal process for that?"},
+          {who:"Rafael", emoji:"👨‍🍳", cls:"marcus", right:true, text:"I am not sure. Let me just see how the next few weeks go."},
+        ],
+        callout: {type:"danger", title:"🚫 Multiple problems here.", body:"Rafael suggested Priya reconsider working, which borders on constructive pressure to resign. He also delayed without referring her to the Coordinator. Under the PWFA, delay and discouragement are not neutral responses. They are legally consequential."}
+      },
+      {
+        type: "reference",
+        eyebrow: "PWFA: Key Points",
+        title: "What supervisors must know about pregnancy accommodations.",
+        dos: [
+          "Refer the employee to the Accommodations Coordinator as soon as a pregnancy-related need is raised.",
+          "Express support and maintain confidentiality.",
+          "Cooperate with the Coordinator on scheduling and operational information.",
+          "Treat pregnancy-related accommodation requests with the same urgency as any other ADA request.",
+        ],
+        donts: [
+          "Discourage the employee from requesting an accommodation by raising operational concerns.",
+          "Suggest the employee reduce hours, take leave, or reconsider their role without going through the process.",
+          "Ask for more medical detail than the Coordinator requests.",
+          "Delay referring the employee because you are busy or short-staffed.",
+          "Treat pregnancy accommodations as optional or less serious than other requests.",
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 3: The Coordinator Navigates It",
+        title: "Dr. Patel steps in and finds a path.",
+        narrator: "Rafael referred Priya to Dr. Patel. Dr. Patel follows up with Rafael the next day.",
+        lines: [
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Rafael, thanks for the referral. I have connected with Priya and we have started the process. I need to understand your scheduling structure and how intermittent absences typically get covered."},
+          {who:"Rafael", emoji:"👨‍🍳", cls:"marcus", right:true, text:"We run on a rotating shift schedule. When someone is out, we usually pull from an on-call pool or offer overtime to other staff."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Good. That gives me what I need. I want to be clear that staffing difficulty does not constitute undue hardship under the PWFA without a more substantial showing. We will explore all options before concluding anything."},
+          {who:"Rafael", emoji:"👨‍🍳", cls:"marcus", right:true, text:"Understood. I want to do the right thing here. I just did not know what that was."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"That is exactly why this office exists. You referred promptly. That is the right thing."},
+        ]
+      },
+      {
+        type: "knowledge",
+        eyebrow: "Knowledge Check: Scenario 05",
+        title: "A pregnant employee tells you her doctor has recommended she avoid lifting over 20 pounds due to a pregnancy complication. Your department requires regular lifting. What is your first step?",
+        id: "s4kq1",
+        options: [
+          {label:"A", text:"Tell the employee she cannot perform her job duties and place her on unpaid leave until she is cleared."},
+          {label:"B", text:"Refer the employee to the Accommodations Coordinator to begin the interactive process under the PWFA."},
+          {label:"C", text:"Quietly reassign the lifting duties to other staff and tell the employee not to worry about it."},
+          {label:"D", text:"Ask the employee whether the pregnancy is high-risk before deciding how to respond."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"Placing a pregnant employee on unpaid leave without first exploring accommodations likely violates the PWFA. The interactive process must run before any such determination is made."},
+          B:{correct:true,  title:"Correct.", body:"Refer to the Coordinator immediately. The PWFA requires employers to engage in the interactive process for known limitations related to pregnancy. That process starts with a referral, not a unilateral decision."},
+          C:{correct:false, title:"Not appropriate.", body:"Informal redistribution without documentation or Coordinator involvement provides no formal protection for the employee and no clear record for the organization."},
+          D:{correct:false, title:"Incorrect.", body:"You are not entitled to evaluate the severity or nature of the pregnancy complication. That determination belongs to the employee's medical provider and is processed through the Coordinator."},
+        }
+      },
+    ]
+  },
+
+  // ══ SCENARIO 5: LACTATION ACCOMMODATIONS ═══════════════════════════════════
+  {
+    id: 5,
+    title: "Postpartum Lactation Accommodations",
+    law: "PWFA / PUMP Act",
+    slides: [
+      {
+        type: "intro",
+        eyebrow: "Scenario 06",
+        title: "Postpartum Lactation Accommodations",
+        body: "Keisha is a project manager who has recently returned from parental leave. One of her direct reports, Amara, approaches her about needing time and space to pump breast milk during the workday. Keisha wants to be supportive but is not sure what the organization is required to provide.",
+        characters: [
+          {emoji:"👩‍💼", name:"Keisha", role:"Project Manager", cls:"marcus"},
+          {emoji:"👩‍🍼", name:"Amara", role:"Project Coordinator", cls:"jordan"},
+          {emoji:"👩‍⚕️", name:"Dr. Patel", role:"Accommodations Coordinator", cls:"priya"},
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 1: The Conversation",
+        title: "Amara raises a practical need.",
+        narrator: "Amara stops by Keisha's office on her second day back from parental leave. She seems a little uncertain about how this conversation will go.",
+        lines: [
+          {who:"Amara", emoji:"👩‍🍼", cls:"jordan", right:false, text:"Hi Keisha. I wanted to talk to you about something practical. I am breastfeeding and I need to pump a couple of times during the workday. I need a private space that is not a bathroom, and a little flexibility in my schedule for the breaks. I was not sure who to talk to about this."},
+          {who:"Keisha", emoji:"👩‍💼", cls:"marcus", right:true, text:"Of course. I completely understand. I think there might be a lactation room somewhere in the building, but honestly I am not sure of the details or the formal process."},
+          {who:"Amara", emoji:"👩‍🍼", cls:"jordan", right:false, text:"Is there someone who handles this officially? I want to make sure I am covered."},
+        ],
+        callout: {type:"warning", title:"⚠️ Two laws apply here.", body:"The PWFA and the PUMP Act (Providing Urgent Maternal Protections for Nursing Mothers Act) both protect employees who need to express breast milk at work. Employers must provide reasonable break time and a private, non-bathroom space. This is not discretionary. Keisha's instinct to help is right. She just needs to know where to send Amara."}
+      },
+      {
+        type: "choice",
+        eyebrow: "Your Turn",
+        title: "What should Keisha do?",
+        narrator: "Keisha wants to be supportive. She has a vague idea that a lactation room exists but does not know the formal process. What is the right move?",
+        id: "s5q1",
+        options: [
+          {label:"A", text:"Tell Amara she can use an empty conference room whenever one is available and figure out the rest as they go."},
+          {label:"B", text:"Thank Amara for raising it, and refer her to the Accommodations Coordinator who can confirm the space, the process, and Amara's rights."},
+          {label:"C", text:"Tell Amara this is a facilities issue and send her to building management."},
+          {label:"D", text:"Ask Amara how long she plans to breastfeed before deciding how to handle the request."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Not quite.", body:"An available conference room is not a reliable or legally sufficient solution. The PUMP Act requires a dedicated, private space. An informal arrangement does not fulfill that obligation or document Amara's protections."},
+          B:{correct:true,  title:"Correct.", body:"The Coordinator knows the organization's lactation policy, the designated space, and the process for scheduling breaks. Referring Amara ensures she gets accurate information and formal protection."},
+          C:{correct:false, title:"Incorrect.", body:"This is not solely a facilities matter. It is a legal accommodation obligation. Sending Amara to building management without involving the Coordinator leaves her without the process protections she is entitled to."},
+          D:{correct:false, title:"Incorrect.", body:"The duration of breastfeeding is irrelevant to the legal obligation. Employees are entitled to lactation accommodations regardless of how long they plan to nurse. This question is not appropriate to ask."},
+        }
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 2: The Informal Route Goes Wrong",
+        title: "In another version, Keisha wings it.",
+        narrator: "In a parallel scenario, Keisha decides she can handle this without involving anyone else.",
+        lines: [
+          {who:"Keisha", emoji:"👩‍💼", cls:"marcus", right:true, text:"I will just book the small conference room for you at 10 and 2 every day. That should work, right?"},
+          {who:"Amara", emoji:"👩‍🍼", cls:"jordan", right:false, text:"I guess so. But what happens if the room gets double-booked or someone needs it for a meeting?"},
+          {who:"Keisha", emoji:"👩‍💼", cls:"marcus", right:true, text:"We will cross that bridge when we come to it. I am sure people will be understanding."},
+          {who:"Amara", emoji:"👩‍🍼", cls:"jordan", right:false, text:"It happened twice last week actually. I ended up missing a pumping session because there was nowhere to go."},
+        ],
+        callout: {type:"danger", title:"🚫 Good intentions are not enough.", body:"Keisha's solution was well-meaning but unreliable. Under the PUMP Act, an employer must ensure access to a private, non-bathroom space. A conference room that gets bumped is not a compliant solution. Amara missing pumping sessions because of inadequate space is a legal violation, even if it was unintentional."}
+      },
+      {
+        type: "reference",
+        eyebrow: "PWFA and PUMP Act: Key Points",
+        title: "What supervisors must know about lactation accommodations.",
+        dos: [
+          "Refer the employee to the Accommodations Coordinator as soon as a lactation need is raised.",
+          "Know that your organization is required to provide a private, non-bathroom space and reasonable break time.",
+          "Treat lactation accommodation requests with the same seriousness as any other accommodation.",
+          "Follow up with the Coordinator if the employee reports that the accommodation is not working.",
+        ],
+        donts: [
+          "Offer informal arrangements like available conference rooms as a substitute for a designated space.",
+          "Ask how long the employee plans to breastfeed before responding to the request.",
+          "Tell the employee this is a facilities or building management issue only.",
+          "Allow the arrangement to lapse or become unreliable without escalating to the Coordinator.",
+          "Treat lactation breaks as optional or subject to operational convenience.",
+        ]
+      },
+      {
+        type: "dialogue",
+        eyebrow: "Scene 3: The Right Process",
+        title: "Dr. Patel makes it official.",
+        narrator: "Keisha referred Amara to Dr. Patel. Dr. Patel follows up with both of them the next day.",
+        lines: [
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Amara, I have confirmed access to our designated lactation room on the second floor. It has a lock, a chair, a power outlet, and a mini refrigerator. I will send you the booking link and the access code today."},
+          {who:"Amara", emoji:"👩‍🍼", cls:"jordan", right:false, text:"That is such a relief. Thank you."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Keisha, I will also send you a summary of Amara's schedule accommodation so you are aware. She has approved breaks at 10 and 2. These are protected time and should not be scheduled over."},
+          {who:"Keisha", emoji:"👩‍💼", cls:"marcus", right:true, text:"Understood. I will block those on the team calendar."},
+          {who:"Dr. Patel", emoji:"👩‍⚕️", cls:"priya", right:false, text:"Perfect. Amara, if anything comes up with access or scheduling, contact me directly. Keisha, same goes for you. Do not try to resolve it informally if a problem arises."},
+        ]
+      },
+      {
+        type: "knowledge",
+        eyebrow: "Knowledge Check: Scenario 06",
+        title: "An employee who recently returned from parental leave tells you she needs to pump breast milk twice a day and asks for a private space. You should:",
+        id: "s5kq1",
+        options: [
+          {label:"A", text:"Tell her she can use the single-occupancy bathroom on the third floor since it has a lock."},
+          {label:"B", text:"Refer her to the Accommodations Coordinator, who will confirm the designated lactation space and formalize her break schedule."},
+          {label:"C", text:"Tell her to pump before or after her shift to avoid disrupting the workday."},
+          {label:"D", text:"Check whether the conference room is usually free at her preferred times and offer that as a solution."},
+        ],
+        correct: "B",
+        feedback: {
+          A:{correct:false, title:"Incorrect.", body:"The PUMP Act explicitly requires a space that is not a bathroom. A bathroom, regardless of whether it has a lock, does not meet the legal standard."},
+          B:{correct:true,  title:"Correct.", body:"The Coordinator manages the designated lactation space and the formal accommodation. Referring ensures the employee gets a legally compliant solution with documented protections."},
+          C:{correct:false, title:"Incorrect.", body:"Requiring an employee to pump outside of work hours is not compliant with the PUMP Act. Employers must provide reasonable break time during the workday."},
+          D:{correct:false, title:"Incorrect.", body:"An informally available conference room is not a reliable or legally sufficient solution. The PUMP Act requires a dedicated private space, not a best-effort arrangement."},
+        }
+      },
+    ]
+  },
+];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function announce(msg){
+  const r = document.getElementById('live-region');
+  r.textContent = '';
+  setTimeout(()=>{ r.textContent = msg; }, 50);
+}
+
+function setProgress(pct){
+  const fill = document.getElementById('progress-fill');
+  const wrap = document.getElementById('progress-bar-wrap');
+  fill.style.width = pct+'%';
+  wrap.setAttribute('aria-valuenow', Math.round(pct));
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  document.getElementById('main-content').focus();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showHub(){
+  updateHubUI();
+  showScreen('screen-hub');
+  setProgress((scenarioPassed.filter(Boolean).length / 6) * 80);
+  announce('Scenario hub. ' + scenarioPassed.filter(Boolean).length + ' of 6 scenarios completed.');
+}
+
+function updateHubUI(){
+  const completed = scenarioPassed.filter(Boolean).length;
+  document.getElementById('hub-prog-fill').style.width = (completed/6*100)+'%';
+  document.getElementById('hub-prog-count').textContent = completed + ' of 6';
+  SCENARIOS.forEach((sc, i)=>{
+    const btn = document.getElementById('sc-btn-'+i);
+    const statusEl = document.getElementById('sc-status-'+i);
+    if(scenarioPassed[i]){
+      btn.classList.add('completed');
+      statusEl.textContent = '✅';
+      btn.setAttribute('aria-label', `Scenario ${i+1}: ${sc.title}. ${sc.law}. Completed.`);
+    } else {
+      statusEl.textContent = '○';
+    }
+  });
+}
+
+// ── MODULE START ──────────────────────────────────────────────────────────────
+function startModule(){
+  const nameInput = document.getElementById('learner-name');
+  const name = nameInput.value.trim();
+  if(!name){
+    nameInput.focus();
+    nameInput.style.borderColor = '#9b1c1c';
+    announce('Please enter your name to continue.');
+    return;
   }
+  learnerName = name;
+  showHub();
+}
 
-  function goTo(n) {
-    document.getElementById(`slide-${currentSlide}`).classList.remove('active');
-    currentSlide = n;
-    document.getElementById(`slide-${currentSlide}`).classList.add('active');
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (n === 10) showFinalScore();
+// ── LAUNCH SCENARIO ───────────────────────────────────────────────────────────
+function launchScenario(idx){
+  currentScenario = idx;
+  currentSlide = 0;
+  scenarioAnswers[idx] = {};
+  renderSlide();
+  showScreen('screen-scenario');
+  announce('Starting scenario ' + (idx+1) + ': ' + SCENARIOS[idx].title);
+}
+
+// ── RENDER SLIDE ──────────────────────────────────────────────────────────────
+function renderSlide(){
+  const sc = SCENARIOS[currentScenario];
+  const slide = sc.slides[currentSlide];
+  const total = sc.slides.length;
+  const pct = (currentSlide / total) * 80;
+  setProgress(pct);
+
+  const container = document.getElementById('scenario-slides');
+  container.innerHTML = buildSlide(slide, sc, currentSlide, total);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildSlide(slide, sc, idx, total){
+  const isFirst = idx === 0;
+  const isLast  = idx === total - 1;
+  const backBtn = isFirst
+    ? `<button class="btn btn-secondary" onclick="showHub()" aria-label="Return to scenario hub">← Hub</button>`
+    : `<button class="btn btn-secondary" onclick="prevSlide()" aria-label="Go to previous slide">← Back</button>`;
+
+  switch(slide.type){
+    case 'intro':   return buildIntro(slide, backBtn, isLast);
+    case 'dialogue':return buildDialogue(slide, backBtn, isLast);
+    case 'choice':  return buildChoice(slide, backBtn, isLast);
+    case 'reference':return buildReference(slide, backBtn, isLast);
+    case 'knowledge':return buildKnowledge(slide, backBtn, isLast);
+    default: return '';
   }
+}
 
-  function updateProgress() {
-    const pct = (currentSlide / (TOTAL_SLIDES - 1)) * 100;
-    document.getElementById('progressBar').style.width = pct + '%';
+function buildIntro(slide, backBtn, isLast){
+  const chars = slide.characters.map(c=>`
+    <div class="character" style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:80px;">
+      <div class="b-avatar" aria-hidden="true" style="width:64px;height:64px;font-size:2rem;">${c.emoji}</div>
+      <div style="font-weight:700;font-size:0.82rem;color:var(--slate);text-align:center;">${c.name}</div>
+      <div style="font-size:0.72rem;color:var(--muted);text-align:center;max-width:80px;">${c.role}</div>
+    </div>`).join('');
 
-    STEPS.forEach((_, i) => {
-      const el = document.getElementById(`step-${i}`);
-      el.className = 'step';
-      if (i < currentSlide) el.classList.add('done');
-      if (i === currentSlide) el.classList.add('active');
-      if (i > 0) {
-        const line = document.getElementById(`line-${i}`);
-        line.className = 'step-line' + (i <= currentSlide ? ' done' : '');
-      }
-    });
+  return `
+    <div class="eyebrow">${slide.eyebrow}</div>
+    <h2 class="screen-title">${slide.title}</h2>
+    <p class="body-text">${slide.body}</p>
+    <div class="card">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px;">${chars}</div>
+      <div class="callout info" role="note">
+        <div class="callout-title">ℹ️ Characters in this scenario</div>
+        Dr. Patel, the ADA/Accommodations Coordinator, appears in every scenario as your organization's process anchor.
+      </div>
+    </div>
+    <div class="nav-row">${backBtn}<button class="btn btn-primary" onclick="nextSlide()" aria-label="Continue to first scene">Continue →</button></div>`;
+}
+
+function buildDialogue(slide, backBtn, isLast){
+  const lines = slide.lines.map(l=>{
+    const wrap = l.right ? 'right' : '';
+    return `
+      <div class="bubble-wrap ${wrap}">
+        <div class="b-avatar" aria-hidden="true">${l.emoji}</div>
+        <div class="bubble">
+          <div class="speaker">${l.who}</div>
+          ${l.text}
+        </div>
+      </div>`;
+  }).join('');
+
+  const calloutHTML = slide.callout ? `
+    <div class="callout ${slide.callout.type}" role="note">
+      <div class="callout-title">${slide.callout.title}</div>
+      ${slide.callout.body}
+    </div>` : '';
+
+  return `
+    <div class="eyebrow">${slide.eyebrow}</div>
+    <h2 class="screen-title">${slide.title}</h2>
+    ${slide.narrator ? `<div class="narrator">${slide.narrator}</div>` : ''}
+    <div class="dialogue-scene"><div class="dialogue" role="log" aria-label="Scene dialogue">${lines}</div></div>
+    ${calloutHTML}
+    <div class="nav-row">${backBtn}<button class="btn btn-primary" onclick="nextSlide()" aria-label="Continue to next slide">Continue →</button></div>`;
+}
+
+function buildChoice(slide, backBtn, isLast){
+  const opts = slide.options.map(o=>`
+    <button class="choice-btn" id="choice-${slide.id}-${o.label}"
+      onclick="handleChoice('${slide.id}','${o.label}','${slide.correct}')"
+      aria-label="Option ${o.label}: ${o.text}">
+      <span class="choice-label" aria-hidden="true">${o.label}</span>${o.text}
+    </button>`).join('');
+
+  return `
+    <div class="eyebrow">${slide.eyebrow}</div>
+    <h2 class="screen-title">${slide.title}</h2>
+    ${slide.narrator ? `<div class="narrator">${slide.narrator}</div>` : ''}
+    <div class="choices" role="group" aria-label="Choose the best response">${opts}</div>
+    <div class="feedback-box" id="fb-${slide.id}" role="alert" aria-live="assertive"></div>
+    <div class="nav-row" id="nav-${slide.id}">${backBtn}<button class="btn btn-primary" id="next-${slide.id}" onclick="nextSlide()" disabled aria-label="Continue to next slide" aria-disabled="true">Continue →</button></div>
+    <script>
+      (function(){
+        var stored = window._choiceState && window._choiceState['${slide.id}'];
+        if(stored){ restoreChoice('${slide.id}','${slide.correct}', window._choiceData && window._choiceData['${slide.id}']); }
+      })();
+    <\/script>`;
+}
+
+function buildReference(slide, backBtn, isLast){
+  const doItems = slide.dos.map(d=>`<li><div class="kp-icon" aria-hidden="true">✅</div><div>${d}</div></li>`).join('');
+  const dontItems = slide.donts.map(d=>`<li><div class="kp-icon" aria-hidden="true">🚫</div><div>${d}</div></li>`).join('');
+
+  return `
+    <div class="eyebrow">${slide.eyebrow}</div>
+    <h2 class="screen-title">${slide.title}</h2>
+    <div class="key-points">
+      <h3>Supervisors should:</h3>
+      <ul aria-label="Actions supervisors should take">${doItems}</ul>
+    </div>
+    <div class="key-points" style="border-color:#9b1c1c;">
+      <h3 style="color:#9b1c1c;">Supervisors should not:</h3>
+      <ul aria-label="Actions supervisors should avoid">${dontItems}</ul>
+    </div>
+    <div class="nav-row">${backBtn}<button class="btn btn-primary" onclick="nextSlide()" aria-label="Continue to next slide">Continue →</button></div>`;
+}
+
+function buildKnowledge(slide, backBtn, isLast){
+  const opts = slide.options.map(o=>`
+    <button class="choice-btn" id="kc-${slide.id}-${o.label}"
+      onclick="handleKnowledge('${slide.id}','${o.label}','${slide.correct}')"
+      aria-label="Option ${o.label}: ${o.text}">
+      <span class="choice-label" aria-hidden="true">${o.label}</span>${o.text}
+    </button>`).join('');
+
+  const nextLabel = isLast ? 'Complete this scenario' : 'Continue →';
+  const nextAction = isLast ? `completeScenario()` : `nextSlide()`;
+
+  return `
+    <div class="eyebrow">${slide.eyebrow}</div>
+    <h2 class="screen-title">${slide.title}</h2>
+    <div class="choices" role="group" aria-label="Knowledge check question">${opts}</div>
+    <div class="feedback-box" id="kfb-${slide.id}" role="alert" aria-live="assertive"></div>
+    <div class="nav-row">${backBtn}<button class="btn btn-primary" id="knext-${slide.id}" onclick="${nextAction}" disabled aria-label="${nextLabel}" aria-disabled="true">${nextLabel}</button></div>`;
+}
+
+// ── CHOICE HANDLING ───────────────────────────────────────────────────────────
+function handleChoice(slideId, choice, correct){
+  const sc = SCENARIOS[currentScenario];
+  const slide = sc.slides[currentSlide];
+  const fb = slide.feedback[choice];
+  const isCorrect = choice === correct;
+
+  document.querySelectorAll(`[id^="choice-${slideId}-"]`).forEach(b=>{
+    b.disabled = true;
+    b.setAttribute('aria-disabled','true');
+    const lbl = b.id.split('-').pop();
+    if(lbl === correct) b.classList.add('correct');
+    if(lbl === choice && !isCorrect) b.classList.add('incorrect');
+  });
+
+  const fbox = document.getElementById('fb-'+slideId);
+  fbox.className = `feedback-box show ${isCorrect?'correct':'incorrect'}`;
+  fbox.innerHTML = `<div class="feedback-title">${isCorrect?'✅':'❌'} ${fb.title}</div>${fb.body}`;
+
+  const nextBtn = document.getElementById('next-'+slideId);
+  nextBtn.disabled = false;
+  nextBtn.setAttribute('aria-disabled','false');
+  announce((isCorrect ? 'Correct. ' : 'Incorrect. ') + fb.title + '. ' + fb.body);
+}
+
+function handleKnowledge(slideId, choice, correct){
+  const sc = SCENARIOS[currentScenario];
+  const slide = sc.slides[currentSlide];
+  const fb = slide.feedback[choice];
+  const isCorrect = choice === correct;
+
+  document.querySelectorAll(`[id^="kc-${slideId}-"]`).forEach(b=>{
+    b.disabled = true;
+    b.setAttribute('aria-disabled','true');
+    const lbl = b.id.split('-').pop();
+    if(lbl === correct) b.classList.add('correct');
+    if(lbl === choice && !isCorrect) b.classList.add('incorrect');
+  });
+
+  const fbox = document.getElementById('kfb-'+slideId);
+  fbox.className = `feedback-box show ${isCorrect?'correct':'incorrect'}`;
+  fbox.innerHTML = `<div class="feedback-title">${isCorrect?'✅':'❌'} ${fb.title}</div>${fb.body}`;
+
+  scenarioAnswers[currentScenario][slideId] = isCorrect;
+
+  const nextBtn = document.getElementById('knext-'+slideId);
+  nextBtn.disabled = false;
+  nextBtn.setAttribute('aria-disabled','false');
+  announce((isCorrect ? 'Correct. ' : 'Incorrect. ') + fb.title + '. ' + fb.body);
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function nextSlide(){
+  const sc = SCENARIOS[currentScenario];
+  if(currentSlide < sc.slides.length - 1){
+    currentSlide++;
+    renderSlide();
+    announce('Slide ' + (currentSlide+1) + ' of ' + sc.slides.length);
   }
+}
 
-  function handleChoice(slideId, choice) {
-    const btns = document.querySelectorAll(`#choices-${slideId} .choice-btn`);
-    btns.forEach(b => b.disabled = true);
-
-    const fb = FEEDBACK[slideId][choice];
-    const isCorrect = (choice === CORRECT[slideId]);
-    answers[slideId] = isCorrect;
-
-    // Mark buttons
-    btns.forEach(b => {
-      const lbl = b.querySelector('.choice-label').textContent;
-      if (lbl === CORRECT[slideId]) b.classList.add('correct');
-      if (lbl === choice && !isCorrect) b.classList.add('incorrect');
-    });
-
-    // Show feedback
-    const fbox = document.getElementById(`feedback-${slideId}`);
-    fbox.className = `feedback-box show ${isCorrect ? 'correct' : 'incorrect'}`;
-    fbox.innerHTML = `<div class="feedback-title">${isCorrect ? '✅' : '❌'} ${fb.title}</div>${fb.body}`;
-
-    // Unlock next
-    document.getElementById(`next-${slideId}`).disabled = false;
+function prevSlide(){
+  if(currentSlide > 0){
+    currentSlide--;
+    renderSlide();
+    announce('Slide ' + (currentSlide+1) + ' of ' + SCENARIOS[currentScenario].slides.length);
   }
+}
 
-  function showFinalScore() {
-    const correct = quizSlides.filter(s => answers[s] === true).length;
-    const total = quizSlides.length;
-    document.getElementById('finalScore').textContent = `${correct}/${total}`;
-  }
+// ── SCENARIO COMPLETE ─────────────────────────────────────────────────────────
+function completeScenario(){
+  const answers = scenarioAnswers[currentScenario];
+  const passed = Object.values(answers).every(v=>v===true);
+  scenarioPassed[currentScenario] = passed;
+  scenarioScores[currentScenario] = passed ? 1 : 0;
 
-  function restartModule() {
-    answers = {};
-    // Reset choice buttons
-    [2,7,8,9].forEach(sid => {
-      const btns = document.querySelectorAll(`#choices-${sid} .choice-btn`);
-      btns.forEach(b => { b.disabled = false; b.className = 'choice-btn'; });
-      document.getElementById(`feedback-${sid}`).className = 'feedback-box';
-      document.getElementById(`next-${sid}`).disabled = true;
-    });
-    goTo(0);
+  const sc = SCENARIOS[currentScenario];
+  const container = document.getElementById('scenario-slides');
+
+  if(passed){
+    container.innerHTML = `
+      <div class="scenario-complete">
+        <div class="sc-complete-icon" aria-hidden="true">✅</div>
+        <h2 class="sc-complete-title">Scenario Complete</h2>
+        <p class="sc-complete-sub">You passed the knowledge check for <strong>${sc.title}</strong>.</p>
+      </div>
+      <div class="nav-row" style="justify-content:center;">
+        <button class="btn btn-primary" onclick="${allPassed()?'showCertificate()':'showHub()'}" aria-label="${allPassed()?'View your certificate of completion':'Return to scenario hub'}">
+          ${allPassed() ? '🏆 View Certificate' : '← Return to Hub'}
+        </button>
+      </div>`;
+    announce('Scenario ' + (currentScenario+1) + ' complete. Knowledge check passed.');
+    if(allPassed()) setProgress(100);
+  } else {
+    container.innerHTML = `
+      <div class="scenario-complete" style="border-color:var(--danger);">
+        <div class="sc-complete-icon" aria-hidden="true">🔄</div>
+        <h2 class="sc-complete-title" style="color:var(--danger);">Knowledge Check Not Passed</h2>
+        <p class="sc-complete-sub">You need to answer the knowledge check question correctly to complete this scenario. Please review the material and try again.</p>
+      </div>
+      <div class="nav-row" style="justify-content:center;gap:16px">
+        <button class="btn btn-secondary" onclick="launchScenario(${currentScenario})" aria-label="Retry this scenario from the beginning">↩ Retry Scenario</button>
+        <button class="btn btn-primary" onclick="showHub()" aria-label="Return to hub and try another scenario">← Return to Hub</button>
+      </div>`;
+    announce('Knowledge check not passed. Please retry the scenario.');
   }
+}
+
+function allPassed(){
+  return scenarioPassed.every(Boolean);
+}
+
+// ── CERTIFICATE ───────────────────────────────────────────────────────────────
+function showCertificate(){
+  document.getElementById('cert-name-display').textContent = learnerName;
+  document.getElementById('cert-date').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('cert-score').textContent = scenarioPassed.filter(Boolean).length + ' / 6 Passed';
+
+  SCENARIOS.forEach((sc,i)=>{
+    const passed = scenarioPassed[i];
+    document.getElementById('score-num-'+i).textContent = passed ? '✓' : '✗';
+    document.getElementById('score-status-'+i).textContent = passed ? 'Passed' : 'Not Passed';
+    document.getElementById('score-card-'+i).classList.add(passed ? 'pass' : 'fail');
+  });
+
+  setProgress(100);
+  showScreen('cert-screen');
+  announce('Certificate of completion ready for ' + learnerName + '. All four scenarios completed.');
+}
 </script>
 </body>
 </html>

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>When Employees Need Support: A Supervisor's Guide to Accommodations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --slate: #3d5073;
+    --gold: #e8a020;
+    --gold-light: #fdf3e0;
+    --cream: #fafaf7;
+    --white: #ffffff;
+    --text: #1e1e2e;
+    --muted: #6b7280;
+    --success: #2d7a4f;
+    --success-bg: #edfaf3;
+    --danger: #c0392b;
+    --danger-bg: #fdf0ee;
+    --border: #e2e5ec;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(26,39,68,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* HEADER */
+  header {
+    width: 100%;
+    background: var(--navy);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header .course-title {
+    font-family: 'DM Serif Display', serif;
+    color: var(--white);
+    font-size: 1.1rem;
+    letter-spacing: 0.01em;
+  }
+  header .badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    width: 100%;
+    background: var(--slate);
+    height: 6px;
+  }
+  .progress-bar-fill {
+    height: 6px;
+    background: var(--gold);
+    transition: width 0.5s ease;
+  }
+
+  /* MAIN CONTAINER */
+  .module-container {
+    width: 100%;
+    max-width: 780px;
+    padding: 40px 24px 80px;
+  }
+
+  /* SLIDE */
+  .slide {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+  .slide.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  /* SCENE LABEL */
+  .scene-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  /* SLIDE TITLE */
+  .slide-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    color: var(--navy);
+    margin-bottom: 20px;
+    line-height: 1.25;
+  }
+
+  /* CHARACTER SCENE */
+  .character-scene {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+
+  .characters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 3px solid var(--border);
+  }
+  .avatar.marcus  { background: #e8eef8; border-color: var(--slate); }
+  .avatar.jordan  { background: #f0f8ee; border-color: #4a9e6b; }
+  .avatar.priya   { background: #fdf3e0; border-color: var(--gold); }
+
+  .char-name {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--slate);
+    text-align: center;
+  }
+  .char-role {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 80px;
+  }
+
+  /* DIALOGUE */
+  .dialogue { display: flex; flex-direction: column; gap: 14px; }
+
+  .bubble-wrap {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .bubble-wrap.right {
+    flex-direction: row-reverse;
+  }
+
+  .bubble-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .bubble-avatar.marcus { background: #e8eef8; }
+  .bubble-avatar.jordan { background: #f0f8ee; }
+  .bubble-avatar.priya  { background: #fdf3e0; }
+
+  .bubble {
+    background: #f4f6fb;
+    border-radius: 0 12px 12px 12px;
+    padding: 12px 16px;
+    font-size: 0.93rem;
+    line-height: 1.55;
+    max-width: 88%;
+    position: relative;
+  }
+  .bubble-wrap.right .bubble {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 12px 0 12px 12px;
+  }
+  .bubble .speaker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--slate);
+    margin-bottom: 4px;
+  }
+  .bubble-wrap.right .bubble .speaker { color: var(--gold); }
+
+  .bubble em {
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  /* NARRATOR BOX */
+  .narrator {
+    background: var(--gold-light);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: var(--navy);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .narrator strong { font-weight: 700; }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+  .callout.warning  { background: #fff7ed; border: 1px solid #f59e0b; }
+  .callout.info     { background: #eff6ff; border: 1px solid #3b82f6; }
+  .callout.success  { background: var(--success-bg); border: 1px solid #4ade80; }
+  .callout.danger   { background: var(--danger-bg); border: 1px solid #f87171; }
+  .callout-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+
+  /* CHOICES */
+  .choices { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
+  .choice-btn {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.93rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.5;
+  }
+  .choice-btn:hover {
+    border-color: var(--slate);
+    background: #f4f6fb;
+    transform: translateX(4px);
+  }
+  .choice-btn .choice-label {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-right: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .choice-btn.correct {
+    border-color: var(--success);
+    background: var(--success-bg);
+  }
+  .choice-btn.incorrect {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+  }
+  .choice-btn:disabled { cursor: default; transform: none; }
+
+  /* FEEDBACK */
+  .feedback-box {
+    margin-top: 16px;
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    display: none;
+  }
+  .feedback-box.show { display: block; }
+  .feedback-box.correct { background: var(--success-bg); border: 1px solid #4ade80; color: #14532d; }
+  .feedback-box.incorrect { background: var(--danger-bg); border: 1px solid #f87171; color: #7f1d1d; }
+  .feedback-title { font-weight: 700; margin-bottom: 4px; }
+
+  /* KEY POINTS */
+  .key-points {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .key-points h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 16px;
+  }
+  .key-points ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .key-points li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .key-points li .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+  }
+
+  /* NAV BUTTONS */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    gap: 12px;
+  }
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.93rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--slate); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { color: var(--navy); border-color: var(--navy); }
+  .btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* COMPLETION */
+  .completion-hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .completion-hero .trophy { font-size: 4rem; margin-bottom: 16px; }
+  .completion-hero h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .completion-hero p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+  .score-display {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .score-item { text-align: center; }
+  .score-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: var(--navy);
+  }
+  .score-lbl { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+
+  /* STEP TRACKER */
+  .step-tracker {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    min-width: 60px;
+  }
+  .step-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+  .step.done .step-dot   { background: var(--navy); color: var(--white); }
+  .step.active .step-dot { background: var(--gold); color: var(--navy); }
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin-top: -20px;
+    transition: background 0.3s;
+  }
+  .step-line.done { background: var(--navy); }
+  .step-lbl {
+    font-size: 0.62rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .step.active .step-lbl, .step.done .step-lbl { color: var(--navy); font-weight: 600; }
+
+  /* PROCESS STEPS */
+  .process-steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .process-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .ps-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .ps-content h4 { font-size: 0.9rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .ps-content p  { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .slide-title { font-size: 1.45rem; }
+    .characters { gap: 12px; }
+    .avatar { width: 56px; height: 56px; font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="course-title">When Employees Need Support</span>
+  <span class="badge">Interactive</span>
+</header>
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+</div>
+
+<div class="module-container">
+
+  <!-- STEP TRACKER -->
+  <div class="step-tracker" id="stepTracker"></div>
+
+  <!-- ===================== SLIDE 0: TITLE ===================== -->
+  <div class="slide active" id="slide-0">
+    <div class="scene-label">Welcome</div>
+    <h1 class="slide-title">When Employees Need Support</h1>
+    <div class="narrator">
+      <strong>A supervisor's guide to workplace accommodations under the ADA and PWFA.</strong><br><br>
+      In this module, you will follow Marcus, a manager with good intentions and a talent for saying the wrong thing at the wrong time, as he navigates an employee accommodation request. You will help him (and yourself) learn the right moves.<br><br>
+      Estimated time: <strong>10–12 minutes.</strong>
+    </div>
+    <div class="characters">
+      <div class="character">
+        <div class="avatar marcus">👨‍💼</div>
+        <div class="char-name">Marcus</div>
+        <div class="char-role">Department Supervisor</div>
+      </div>
+      <div class="character">
+        <div class="avatar jordan">🧑‍💻</div>
+        <div class="char-name">Jordan</div>
+        <div class="char-role">Staff Member</div>
+      </div>
+      <div class="character">
+        <div class="avatar priya">👩‍⚕️</div>
+        <div class="char-name">Dr. Patel</div>
+        <div class="char-role">ADA/Accommodations Coordinator</div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-title">ℹ️ Learning Objectives</div>
+      <ul style="padding-left:16px; margin-top:6px; line-height:1.8; font-size:0.9rem;">
+        <li>Recognize what triggers an employer's duty to engage in the interactive process</li>
+        <li>Know what supervisors should and should not do when an employee discloses a need</li>
+        <li>Understand the role of your organization's ADA/Accommodations Coordinator</li>
+        <li>Apply the accommodation process correctly from disclosure to resolution</li>
+      </ul>
+    </div>
+    <div class="nav-row">
+      <div></div>
+      <button class="btn btn-primary" onclick="goTo(1)">Begin →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 1: THE DISCLOSURE ===================== -->
+  <div class="slide" id="slide-1">
+    <div class="scene-label">Scene 1: The Hallway Conversation</div>
+    <h2 class="slide-title">Jordan has something to tell Marcus.</h2>
+    <div class="narrator">
+      It is Tuesday morning. Marcus is on his third cup of coffee and his second attempt to find a parking spot. Jordan catches him just inside the building entrance.
+    </div>
+    <div class="character-scene">
+      <div class="dialogue">
+        <div class="bubble-wrap">
+          <div class="bubble-avatar jordan">🧑‍💻</div>
+          <div class="bubble">
+            <div class="speaker">Jordan</div>
+            Hey Marcus, do you have a minute? I've been dealing with some health stuff lately. My doctor thinks I might need some changes to how I'm working. I'm not sure what that looks like yet, but I wanted to give you a heads up.
+          </div>
+        </div>
+        <div class="bubble-wrap right">
+          <div class="bubble-avatar marcus">👨‍💼</div>
+          <div class="bubble">
+            <div class="speaker">Marcus</div>
+            Oh. Okay. Thanks for letting me know. Is it… serious? Like, what kind of health stuff are we talking about?
+          </div>
+        </div>
+        <div class="bubble-wrap">
+          <div class="bubble-avatar jordan">🧑‍💻</div>
+          <div class="bubble">
+            <div class="speaker">Jordan</div>
+            I'd rather not get into the details. I just know I might need some flexibility with my schedule or my workspace.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout warning">
+      <div class="callout-title">⚠️ Notice anything?</div>
+      Jordan did not use the words "ADA," "disability," or "accommodation." That does not matter. A request for a change at work related to a medical condition is enough to trigger your organization's obligation to respond.
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(2)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 2: CHOICE 1 ===================== -->
+  <div class="slide" id="slide-2">
+    <div class="scene-label">Your Turn: Scene 1</div>
+    <h2 class="slide-title">What should Marcus do next?</h2>
+    <div class="narrator">
+      Marcus is standing in the hallway, coffee in hand, mildly panicked. He has options. Choose the best one.
+    </div>
+    <div class="choices" id="choices-2">
+      <button class="choice-btn" onclick="handleChoice(2,'A')">
+        <span class="choice-label">A</span>
+        Ask Jordan to provide a doctor's note explaining the diagnosis before doing anything else.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(2,'B')">
+        <span class="choice-label">B</span>
+        Tell Jordan this sounds like something HR handles, and move on with his morning.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(2,'C')">
+        <span class="choice-label">C</span>
+        Thank Jordan for the heads up, express support, and let Jordan know you will connect them with the Accommodations Coordinator right away.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(2,'D')">
+        <span class="choice-label">D</span>
+        Offer to just move Jordan's desk closer to the bathroom and call it done.
+      </button>
+    </div>
+    <div class="feedback-box" id="feedback-2"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
+      <button class="btn btn-primary" id="next-2" onclick="goTo(3)" disabled>Continue →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 3: MARCUS STUMBLES ===================== -->
+  <div class="slide" id="slide-3">
+    <div class="scene-label">Scene 2: Marcus Improvises</div>
+    <h2 class="slide-title">Marcus decides to handle it himself.</h2>
+    <div class="narrator">
+      In an alternate universe (the one where Marcus did not choose wisely), things go sideways. Let's visit that universe briefly. It is instructive.
+    </div>
+    <div class="character-scene">
+      <div class="dialogue">
+        <div class="bubble-wrap right">
+          <div class="bubble-avatar marcus">👨‍💼</div>
+          <div class="bubble">
+            <div class="speaker">Marcus</div>
+            Okay Jordan, I hear you. Let me just ask: is this a permanent thing? Because if it's temporary, maybe we just adjust your schedule for a few weeks and see how it goes.
+          </div>
+        </div>
+        <div class="bubble-wrap">
+          <div class="bubble-avatar jordan">🧑‍💻</div>
+          <div class="bubble">
+            <div class="speaker">Jordan</div>
+            I… don't really know yet. My doctor hasn't finished the evaluation.
+          </div>
+        </div>
+        <div class="bubble-wrap right">
+          <div class="bubble-avatar marcus">👨‍💼</div>
+          <div class="bubble">
+            <div class="speaker">Marcus</div>
+            Gotcha. And what exactly is the condition? I want to make sure I understand what we're dealing with.
+          </div>
+        </div>
+        <div class="bubble-wrap">
+          <div class="bubble-avatar jordan">🧑‍💻</div>
+          <div class="bubble">
+            <div class="speaker">Jordan</div>
+            <em>...I'm not really comfortable sharing that.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout danger">
+      <div class="callout-title">🚫 What went wrong?</div>
+      Marcus made two classic mistakes: he probed for a diagnosis (which he is not entitled to), and he tried to evaluate the request himself. Supervisors are not authorized to conduct the interactive process. That is the Coordinator's role.
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 4: WHAT NOT TO ASK ===================== -->
+  <div class="slide" id="slide-4">
+    <div class="scene-label">Know the Rules</div>
+    <h2 class="slide-title">What supervisors should and should not do.</h2>
+    <div class="key-points">
+      <h3>✅ When an employee discloses a need, supervisors should:</h3>
+      <ul>
+        <li><div class="icon">🤝</div><div>Express support and thank the employee for sharing.</div></li>
+        <li><div class="icon">📞</div><div>Connect the employee to your organization's ADA/Accommodations Coordinator promptly.</div></li>
+        <li><div class="icon">🔒</div><div>Keep the conversation confidential. This information is not for team meetings or hallway chats.</div></li>
+        <li><div class="icon">📋</div><div>Cooperate with the Coordinator when asked for information about job duties or the work environment.</div></li>
+      </ul>
+    </div>
+    <div class="key-points" style="border-color:#f87171;">
+      <h3 style="color:#c0392b;">🚫 Supervisors should NOT:</h3>
+      <ul>
+        <li><div class="icon">🩺</div><div>Ask for a diagnosis or probe for medical details beyond what is relevant to the request.</div></li>
+        <li><div class="icon">⚖️</div><div>Make their own determination about whether someone qualifies for an accommodation.</div></li>
+        <li><div class="icon">🛠️</div><div>Implement informal "fixes" without going through the interactive process.</div></li>
+        <li><div class="icon">🗣️</div><div>Share the employee's health information with other staff or managers.</div></li>
+        <li><div class="icon">⏳</div><div>Delay. Unreasonable delays can themselves be a legal violation.</div></li>
+      </ul>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 5: DR. PATEL ENTERS ===================== -->
+  <div class="slide" id="slide-5">
+    <div class="scene-label">Scene 3: Enter Dr. Patel</div>
+    <h2 class="slide-title">The Coordinator takes the wheel.</h2>
+    <div class="narrator">
+      Back in the correct universe: Marcus did the right thing and connected Jordan to Dr. Patel, the organization's ADA/Accommodations Coordinator. Two days later, Dr. Patel calls Marcus.
+    </div>
+    <div class="character-scene">
+      <div class="dialogue">
+        <div class="bubble-wrap">
+          <div class="bubble-avatar priya">👩‍⚕️</div>
+          <div class="bubble">
+            <div class="speaker">Dr. Patel, Accommodations Coordinator</div>
+            Hi Marcus, thanks for the referral. I've connected with Jordan and we've started the interactive process. I do have a few questions for you about the role.
+          </div>
+        </div>
+        <div class="bubble-wrap right">
+          <div class="bubble-avatar marcus">👨‍💼</div>
+          <div class="bubble">
+            <div class="speaker">Marcus</div>
+            Of course. What do you need?
+          </div>
+        </div>
+        <div class="bubble-wrap">
+          <div class="bubble-avatar priya">👩‍⚕️</div>
+          <div class="bubble">
+            <div class="speaker">Dr. Patel</div>
+            I'll need the essential functions of Jordan's position, a description of the physical work environment, and whether there's any flexibility in scheduling. I do not need you to weigh in on whether Jordan qualifies. That determination sits with this office.
+          </div>
+        </div>
+        <div class="bubble-wrap right">
+          <div class="bubble-avatar marcus">👨‍💼</div>
+          <div class="bubble">
+            <div class="speaker">Marcus</div>
+            Got it. I can have the job description and a site walkthrough ready by end of week. And, just to confirm: I should not be discussing this with anyone else on the team?
+          </div>
+        </div>
+        <div class="bubble-wrap">
+          <div class="bubble-avatar priya">👩‍⚕️</div>
+          <div class="bubble">
+            <div class="speaker">Dr. Patel</div>
+            Correct. If implementation requires any team-facing changes, we will handle the communication together. We will do it without disclosing Jordan's medical information. 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 6: THE PROCESS ===================== -->
+  <div class="slide" id="slide-6">
+    <div class="scene-label">The Process</div>
+    <h2 class="slide-title">How the interactive process works.</h2>
+    <div class="narrator">
+      The interactive process is a structured, good-faith conversation between the organization and the employee to identify an effective accommodation. Here is how it flows.
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="ps-num">1</div>
+        <div class="ps-content">
+          <h4>Disclosure / Request</h4>
+          <p>Employee communicates a need for a change at work related to a health condition. No magic words required.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">2</div>
+        <div class="ps-content">
+          <h4>Supervisor Refers</h4>
+          <p>Supervisor connects the employee to the ADA/Accommodations Coordinator without delay or interrogation.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">3</div>
+        <div class="ps-content">
+          <h4>Coordinator Engages</h4>
+          <p>Coordinator meets with the employee, gathers documentation as needed, and reviews job functions with the supervisor.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">4</div>
+        <div class="ps-content">
+          <h4>Accommodation Identified</h4>
+          <p>The organization and employee identify an effective accommodation. It does not have to be the employee's preferred option. It must be effective.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="ps-num">5</div>
+        <div class="ps-content">
+          <h4>Implementation & Follow-Up</h4>
+          <p>Accommodation is put in place. The Coordinator follows up to confirm it is working and adjusts if circumstances change.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(5)">← Back</button>
+      <button class="btn btn-primary" onclick="goTo(7)">Knowledge Check →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 7: KNOWLEDGE CHECK 1 ===================== -->
+  <div class="slide" id="slide-7">
+    <div class="scene-label">Knowledge Check: Question 1 of 3</div>
+    <h2 class="slide-title">An employee tells you they "need Fridays off for a while." No diagnosis mentioned. What is your obligation?</h2>
+    <div class="choices" id="choices-7">
+      <button class="choice-btn" onclick="handleChoice(7,'A')">
+        <span class="choice-label">A</span>
+        None. Without a diagnosis, there is no accommodation request.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(7,'B')">
+        <span class="choice-label">B</span>
+        Refer them to the Accommodations Coordinator. The request does not require magic words.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(7,'C')">
+        <span class="choice-label">C</span>
+        Approve the Fridays off yourself since the request seems straightforward.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(7,'D')">
+        <span class="choice-label">D</span>
+        Ask them to put the request in writing with a doctor's signature first.
+      </button>
+    </div>
+    <div class="feedback-box" id="feedback-7"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(6)">← Back</button>
+      <button class="btn btn-primary" id="next-7" onclick="goTo(8)" disabled>Next Question →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 8: KNOWLEDGE CHECK 2 ===================== -->
+  <div class="slide" id="slide-8">
+    <div class="scene-label">Knowledge Check: Question 2 of 3</div>
+    <h2 class="slide-title">The Accommodations Coordinator asks you about Jordan's job. You should share:</h2>
+    <div class="choices" id="choices-8">
+      <button class="choice-btn" onclick="handleChoice(8,'A')">
+        <span class="choice-label">A</span>
+        Nothing. The Coordinator should get everything from Jordan directly.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(8,'B')">
+        <span class="choice-label">B</span>
+        The essential functions of Jordan's role, physical environment details, and scheduling flexibility. Not your personal opinion on whether Jordan "deserves" an accommodation.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(8,'C')">
+        <span class="choice-label">C</span>
+        Everything you know about Jordan's medical history and how it has affected their performance.
+      </button>
+      <button class="choice-btn" onclick="handleChoice(8,'D')">
+        <span class="choice-label">D</span>
+        Only what your HR handbook says, word for word.
+      </button>
+    </div>
+    <div class="feedback-box" id="feedback-8"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(7)">← Back</button>
+      <button class="btn btn-primary" id="next-8" onclick="goTo(9)" disabled>Next Question →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 9: KNOWLEDGE CHECK 3 ===================== -->
+  <div class="slide" id="slide-9">
+    <div class="scene-label">Knowledge Check: Question 3 of 3</div>
+    <h2 class="slide-title">The accommodation is approved. Your team asks why Jordan now works different hours. You say:</h2>
+    <div class="choices" id="choices-9">
+      <button class="choice-btn" onclick="handleChoice(9,'A')">
+        <span class="choice-label">A</span>
+        "Jordan has a medical condition that requires schedule flexibility."
+      </button>
+      <button class="choice-btn" onclick="handleChoice(9,'B')">
+        <span class="choice-label">B</span>
+        "Jordan worked something out with HR. I'm not in a position to share the details, but the arrangement is approved."
+      </button>
+      <button class="choice-btn" onclick="handleChoice(9,'C')">
+        <span class="choice-label">C</span>
+        "You will have to ask Jordan."
+      </button>
+      <button class="choice-btn" onclick="handleChoice(9,'D')">
+        <span class="choice-label">D</span>
+        Ignore the question entirely and hope it goes away.
+      </button>
+    </div>
+    <div class="feedback-box" id="feedback-9"></div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goTo(8)">← Back</button>
+      <button class="btn btn-primary" id="next-9" onclick="goTo(10)" disabled>See Results →</button>
+    </div>
+  </div>
+
+  <!-- ===================== SLIDE 10: COMPLETION ===================== -->
+  <div class="slide" id="slide-10">
+    <div class="scene-label">Module Complete</div>
+    <div class="completion-hero">
+      <div class="trophy">🏆</div>
+      <h2>You finished. And so did Marcus.</h2>
+      <p>He even made it to his parking spot eventually.</p>
+      <div class="score-display">
+        <div class="score-item">
+          <div class="score-num" id="finalScore">—</div>
+          <div class="score-lbl">Knowledge Check Score</div>
+        </div>
+        <div class="score-item">
+          <div class="score-num">3</div>
+          <div class="score-lbl">Scenarios Completed</div>
+        </div>
+      </div>
+    </div>
+    <div class="key-points">
+      <h3>🔑 The Big Three</h3>
+      <ul>
+        <li><div class="icon">1️⃣</div><div><strong>Refer, do not resolve.</strong> When an employee discloses a need, your job is to connect them to the Accommodations Coordinator. Do not evaluate, diagnose, or fix it yourself.</div></li>
+        <li><div class="icon">2️⃣</div><div><strong>You do not need a diagnosis.</strong> A request for a change at work related to a health condition is enough. The magic words do not matter.</div></li>
+        <li><div class="icon">3️⃣</div><div><strong>Confidentiality is not optional.</strong> Medical information stays between you, the employee, and the Coordinator. It does not go to the team.</div></li>
+      </ul>
+    </div>
+    <div class="callout success">
+      <div class="callout-title">✅ What to do right now</div>
+      Save the contact information for your organization's ADA/Accommodations Coordinator somewhere you can find it quickly. You will need it before you expect to.
+    </div>
+    <div class="nav-row" style="justify-content:center;">
+      <button class="btn btn-primary" onclick="restartModule()">↩ Restart Module</button>
+    </div>
+  </div>
+
+</div><!-- /module-container -->
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────────
+  const TOTAL_SLIDES = 11;
+  const STEPS = [
+    { label: "Intro" },
+    { label: "Scene 1" },
+    { label: "Choice" },
+    { label: "Mistakes" },
+    { label: "Rules" },
+    { label: "Scene 2" },
+    { label: "Process" },
+    { label: "Q1" },
+    { label: "Q2" },
+    { label: "Q3" },
+    { label: "Done" },
+  ];
+
+  const CORRECT = { 2: 'C', 7: 'B', 8: 'B', 9: 'B' };
+
+  const FEEDBACK = {
+    2: {
+      A: { correct: false, title: "Not quite.", body: "Supervisors cannot demand a diagnosis upfront. Documentation requests go through the Accommodations Coordinator, not directly from supervisor to employee." },
+      B: { correct: false, title: "Close, but not quite.", body: "The Accommodations Coordinator is the right person, but \"move on with his morning\" is not an acceptable response. Prompt action is required." },
+      C: { correct: true,  title: "That's the right call.", body: "Marcus acknowledged Jordan's disclosure with support and immediately involved the right resource. That is exactly the playbook." },
+      D: { correct: false, title: "Well-intentioned, but no.", body: "Informal fixes without going through the interactive process can create legal exposure, even if the outcome seems reasonable. The process exists for good reason." },
+    },
+    7: {
+      A: { correct: false, title: "Not quite.", body: "Under the ADA and PWFA, employees do not need to use specific language or disclose a diagnosis to trigger the process. A request for a change related to a health condition is enough." },
+      B: { correct: true,  title: "Correct.", body: "The duty to engage in the interactive process is triggered by a request, not a diagnosis. Refer promptly." },
+      C: { correct: false, title: "Incorrect.", body: "Approving an accommodation yourself, even a seemingly simple one, bypasses the interactive process. That determination belongs to the Coordinator." },
+      D: { correct: false, title: "Not the right first step.", body: "You can cooperate with documentation requests later. The first step is a referral to the Coordinator, not a documentation demand from you." },
+    },
+    8: {
+      A: { correct: false, title: "Incorrect.", body: "The Coordinator needs your input on job functions and environment. That is specifically your lane. Refusing to engage delays the process." },
+      B: { correct: true,  title: "Exactly right.", body: "Supervisors provide job-related information: functions, environment, flexibility. Eligibility determinations are the Coordinator's responsibility, not yours." },
+      C: { correct: false, title: "No. This could cause real harm.", body: "You are not authorized to share medical history, and doing so could violate confidentiality obligations. Stick to job-related information." },
+      D: { correct: false, title: "Not quite.", body: "The Coordinator needs real, current information about the role, not a verbatim reading of a potentially outdated handbook." },
+    },
+    9: {
+      A: { correct: false, title: "Incorrect.", body: "Disclosing that Jordan has a medical condition violates confidentiality. Even true information can be impermissible to share." },
+      B: { correct: true,  title: "Well handled.", body: "This answer acknowledges the situation without disclosing protected information. It is honest and appropriately brief." },
+      C: { correct: false, title: "Not recommended.", body: "Deflecting to Jordan puts them in the position of either explaining their own medical situation or appearing evasive. Handle it at the supervisory level." },
+      D: { correct: false, title: "Tempting, but no.", body: "Silence invites speculation, which can be just as harmful as disclosure. A brief, neutral acknowledgment is the right approach." },
+    },
+  };
+
+  // ── STATE ────────────────────────────────────────────────────
+  let currentSlide = 0;
+  let answers = {};
+  let quizSlides = [7, 8, 9];
+
+  // ── INIT ─────────────────────────────────────────────────────
+  buildStepTracker();
+  updateProgress();
+
+  function buildStepTracker() {
+    const t = document.getElementById('stepTracker');
+    t.innerHTML = '';
+    STEPS.forEach((s, i) => {
+      if (i > 0) {
+        const line = document.createElement('div');
+        line.className = 'step-line';
+        line.id = `line-${i}`;
+        t.appendChild(line);
+      }
+      const step = document.createElement('div');
+      step.className = 'step' + (i === 0 ? ' active' : '');
+      step.id = `step-${i}`;
+      step.innerHTML = `<div class="step-dot">${i + 1}</div><div class="step-lbl">${s.label}</div>`;
+      t.appendChild(step);
+    });
+  }
+
+  function goTo(n) {
+    document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+    currentSlide = n;
+    document.getElementById(`slide-${currentSlide}`).classList.add('active');
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 10) showFinalScore();
+  }
+
+  function updateProgress() {
+    const pct = (currentSlide / (TOTAL_SLIDES - 1)) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+
+    STEPS.forEach((_, i) => {
+      const el = document.getElementById(`step-${i}`);
+      el.className = 'step';
+      if (i < currentSlide) el.classList.add('done');
+      if (i === currentSlide) el.classList.add('active');
+      if (i > 0) {
+        const line = document.getElementById(`line-${i}`);
+        line.className = 'step-line' + (i <= currentSlide ? ' done' : '');
+      }
+    });
+  }
+
+  function handleChoice(slideId, choice) {
+    const btns = document.querySelectorAll(`#choices-${slideId} .choice-btn`);
+    btns.forEach(b => b.disabled = true);
+
+    const fb = FEEDBACK[slideId][choice];
+    const isCorrect = (choice === CORRECT[slideId]);
+    answers[slideId] = isCorrect;
+
+    // Mark buttons
+    btns.forEach(b => {
+      const lbl = b.querySelector('.choice-label').textContent;
+      if (lbl === CORRECT[slideId]) b.classList.add('correct');
+      if (lbl === choice && !isCorrect) b.classList.add('incorrect');
+    });
+
+    // Show feedback
+    const fbox = document.getElementById(`feedback-${slideId}`);
+    fbox.className = `feedback-box show ${isCorrect ? 'correct' : 'incorrect'}`;
+    fbox.innerHTML = `<div class="feedback-title">${isCorrect ? '✅' : '❌'} ${fb.title}</div>${fb.body}`;
+
+    // Unlock next
+    document.getElementById(`next-${slideId}`).disabled = false;
+  }
+
+  function showFinalScore() {
+    const correct = quizSlides.filter(s => answers[s] === true).length;
+    const total = quizSlides.length;
+    document.getElementById('finalScore').textContent = `${correct}/${total}`;
+  }
+
+  function restartModule() {
+    answers = {};
+    // Reset choice buttons
+    [2,7,8,9].forEach(sid => {
+      const btns = document.querySelectorAll(`#choices-${sid} .choice-btn`);
+      btns.forEach(b => { b.disabled = false; b.className = 'choice-btn'; });
+      document.getElementById(`feedback-${sid}`).className = 'feedback-box';
+      document.getElementById(`next-${sid}`).disabled = true;
+    });
+    goTo(0);
+  }
+</script>
+</body>
+</html>
